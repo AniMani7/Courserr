@@ -39,7 +39,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #45C4B0;
+  background-color: #fff0c8;
 }
 
 .classPageDescriptionGraphContainer {
@@ -206,6 +206,7 @@
   font-size: larger;
   text-align: center;
   display: flex;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   flex-flow: column;
   justify-content: center;
   align-items: center;
@@ -269,7 +270,8 @@
   margin-bottom: 3vh;
   width: 90vw;
   height: 18vh;
-  background-color: lightpink;
+  
+  background-color: rgb(255, 226, 138);
   border-radius: var(--borderRad);
   display: grid;
   grid-template: 
@@ -284,6 +286,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
   font-size: 2.5vh;
   padding-top: 4vh;
 }
@@ -306,6 +309,8 @@
 .ratee {
   grid-area: ratee;
   display: flex;
+  font-weight:800;
+  color:#c36b00;
   justify-content: center;
   align-items: center;
   /*background-color: orange;*/
