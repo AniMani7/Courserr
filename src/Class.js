@@ -1,8 +1,7 @@
 class Class {
-    constructor(dualCredit, subject, usualGrade, prerequisite, duration, honorsAP, description, averageGrade, ratings = [], comments = [], averageTimePerWeek, icon, className) {
+    constructor(dualCredit, subject, prerequisite, duration, honorsAP, description, averageGrade, ratings = [], comments = [], averageTimePerWeek, icon, className) {
         this.dualCredit = dualCredit;
         this.subject = subject;
-        this.usualGrade = usualGrade;
         this.prerequisite = prerequisite;
         this.duration = duration; // 'semester' or 'year'
         this.honorsAP = honorsAP; // 'honors', 'AP', or 'none'
@@ -35,7 +34,6 @@ class Class {
     // Getters
     getDualCredit() { return this.dualCredit; }
     getSubject() { return this.subject; }
-    getUsualGrade() { return this.usualGrade; }
     getPrerequisite() { return this.prerequisite; }
     getDuration() { return this.duration; }
     getHonorsAP() { return this.honorsAP; }
@@ -52,7 +50,6 @@ class Class {
         return JSON.stringify({
             dualCredit: this.dualCredit,
             subject: this.subject,
-            usualGrade: this.usualGrade,
             prerequisite: this.prerequisite,
             duration: this.duration,
             honorsAP: this.honorsAP,
