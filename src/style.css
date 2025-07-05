@@ -87,7 +87,7 @@ body {
   padding: 0.5%;
   border-radius: 25%;
   font-size: 5vh;
-  transition: background-color 0.1s ease, transform 1s ease, filter 1.5s ease;
+  transition: background-color 0.1s ease, transform 1s ease;
 }
 .mobileClose {
   display: none;
@@ -219,7 +219,6 @@ body {
     padding-top: 18.5vh;
     display: grid;
     grid-template-columns: 20vw 20vw 20vw 20vw;
-
     column-gap: 3.3vw;
     row-gap: 2vh;
     height: 100vh;
@@ -321,47 +320,47 @@ span {
 }
 .history {
   /*background: #81A489;*/
-  background: #dccde4;
+  background: #5b135a;
   /*background-color: rgba(129, 164, 137, 0.75);*/
-  color: #786482;
+  color: #290928;
 }
 .english {
   /*background: #F2A054;*/
   /*background-color: rgba(208, 101, 235, 0.75);*/
-  background: #d8dff1;
-  color: #bbc1d1;
+  background: #7a98de;
+  color: #5e75ab;
 }
 .math {
   /*background: #F1D8B5;*/
-  background: #e8f0fa;
+  background: #335a8a;
   /*background-color: rgba(101, 235, 105, 0.75);*/
-  color: #6a7b90;
+  color: #203957;
 }
 .arts {
   /*background: #C04D31;*/
-  background: #dbe4e4;
+  background: #2bcbc9;
   /*background-color: rgba(235, 101, 101, 0.75);*/
   color: #209997;
 }
 .science {
   /*background: #8043AD;*/
-  background: #f0f8e4;
+  background: #7f995a;
   /*background-color: rgba(235, 202, 101, 0.75);*/
-  color: #9db081;
+  color: #55663c;
 }
 .music {
   /*background: #42A6A9;*/
-  background: #f6f3e8;
+  background: #ddc260;
   /*background-color: rgba(101, 235, 231, 0.75);*/
-  color: #c4b57e;
+  color: #ab9649;
 }
 .foreignLanguage {
-  background: #f3e7e9;
+  background: #e99ca5;
   color: #b57980;
 }
 .misc {
-  background: #f3d6e1;
-  color: #c17c97;
+  background: #c3044c;
+  color: #8f0339;
 }
 
 .closeMenu {
