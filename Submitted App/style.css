@@ -10,8 +10,8 @@
 }
 :root {
     height: 100%;
-    --light-mode-bg: rgba(204, 204, 204, 0.75);
-    --dark-mode-bg: rgba(75, 75, 75, 0.75);
+    --light-mode-bg: rgba(255, 221, 188, 0.75);
+    --dark-mode-bg: rgba(119, 46, 12, 0.75);
     --dark-bg: rgb(20, 20, 20);
     --light-bg: white;
 }
@@ -363,7 +363,7 @@ span {
 }
 .math {
   /*background: #F1D8B5;*/
-  background: #335a8a;
+  background: #96b9e4;
   /*background-color: rgba(101, 235, 105, 0.75);*/
   color: #203957;
 }
@@ -375,7 +375,7 @@ span {
 }
 .science {
   /*background: #8043AD;*/
-  background: #7f995a;
+  background: #cdf199;
   /*background-color: rgba(235, 202, 101, 0.75);*/
   color: #55663c;
 }
@@ -385,7 +385,7 @@ span {
 }
 .music {
   /*background: #42A6A9;*/
-  background: #ddc260;
+  background: #ffe99b;
   /*background-color: rgba(101, 235, 231, 0.75);*/
   color: #ab9649;
 }
@@ -394,7 +394,7 @@ span {
   color: #b57980;
 }
 .misc {
-  background: #c3044c;
+  background: #ff7daf;
   color: #8f0339;
 }
 
