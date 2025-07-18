@@ -41,131 +41,140 @@
 <body>
     <div>
         <h1>Hours to Grade Visualization</h1>
-        <div class="chart-container">
-            <canvas id="myChart"></canvas>
-        </div>
+        <div id="myChartContainer" class="chart-container"></div>
     </div>
 
     <script>
-        // Map to store average hours and grades
-        const hoursToGradeMap = new Map([
-            [5, 50],
-            [10, 60],
-            [15, 70],
-            [20, 80],
-            [25, 90],
-            [30, 100]
-        ]);
+        // Function to create a scatter/line graph for class objects
+        function createClassGraph(classArray, gradeAttr, hoursAttr, containerId, width = 800, height = 400) {
+            // Remove any existing canvas
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            canvas.id = 'myChart';
+            canvas.width = width;
+            canvas.height = height;
+            container.appendChild(canvas);
 
-        // Convert Map to array of points
-        const xyValues = Array.from(hoursToGradeMap, ([x, y]) => ({ x, y }));
+            // Extract data
+            const xyValues = classArray.map(cls => ({
+                x: Number(cls[hoursAttr]),
+                y: typeof cls[gradeAttr] === 'string' ? letterToPercent(cls[gradeAttr]) : Number(cls[gradeAttr])
+            })).filter(point => !isNaN(point.x) && !isNaN(point.y));
 
-        // Function to calculate the line of best fit
-        function linearRegression(data) {
-            let n = data.length;
-            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            // Helper: convert letter grade to percent
+            function letterToPercent(letter) {
+                const map = { 'A': 95, 'B': 85, 'C': 75, 'D': 65, 'F': 55 };
+                return map[letter] || 0;
+            }
 
-            data.forEach(point => {
-                sumX += point.x;
-                sumY += point.y;
-                sumXY += point.x * point.y;
-                sumX2 += point.x * point.x;
-            });
+            // Linear regression
+            function linearRegression(data) {
+                let n = data.length;
+                let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+                data.forEach(point => {
+                    sumX += point.x;
+                    sumY += point.y;
+                    sumXY += point.x * point.y;
+                    sumX2 += point.x * point.x;
+                });
+                let slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                let intercept = (sumY - slope * sumX) / n;
+                return { slope, intercept };
+            }
 
-            let slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-            let intercept = (sumY - slope * sumX) / n;
+            const { slope, intercept } = linearRegression(xyValues);
+            // Generate line of best fit
+            const minX = Math.min(...xyValues.map(p => p.x));
+            const maxX = Math.max(...xyValues.map(p => p.x));
+            const lineValues = [];
+            for (let x = minX; x <= maxX; x += (maxX-minX)/5) {
+                lineValues.push({ x: x, y: slope * x + intercept });
+            }
 
-            return { slope, intercept };
-        }
-
-        const { slope, intercept } = linearRegression(xyValues);
-
-        // Generate the line of best fit
-        const lineValues = [];
-        for (let x = 0; x <= 35; x += 5) {
-            lineValues.push({ x: x, y: slope * x + intercept });
-        }
-
-        // Create the chart
-        new Chart("myChart", {
-            type: "scatter",
-            data: {
-                datasets: [{
-                    label: 'Data Points',
-                    pointRadius: 6,
-                    pointBackgroundColor: "rgba(0,123,255,0.7)",
-                    pointBorderColor: "rgba(0,123,255,1)",
-                    pointBorderWidth: 2,
-                    data: xyValues
-                }, {
-                    label: 'Line of Best Fit',
-                    type: 'line',
-                    data: lineValues,
-                    borderColor: "rgba(255,99,132,1)",
-                    borderWidth: 2,
-                    fill: false,
-                    pointRadius: 0,
-                    borderDash: [5, 5]
-                }]
-            },
-            options: {
-                legend: {
-                    display: true,
-                    labels: {
-                        fontColor: "#fff",
-                        fontSize: 14,
-                        fontStyle: 'bold'
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            min: 0,
-                            max: 35,
-                            stepSize: 5,
-                            fontColor: "#fff",
-                            fontSize: 14
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Average Hours Spent Per Week',
-                            fontColor: "#fff",
-                            fontSize: 16,
-                            fontStyle: 'bold'
-                        },
-                        gridLines: {
-                            color: "rgba(200,200,200,0.2)"
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            min: 50,
-                            max: 100,
-                            stepSize: 10,
-                            fontColor: "#fff",
-                            fontSize: 14
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Average Grade (%)',
-                            fontColor: "#fff",
-                            fontSize: 16,
-                            fontStyle: 'bold'
-                        },
-                        gridLines: {
-                            color: "rgba(200,200,200,0.2)"
-                        }
+            // Create the chart
+            new Chart(canvas, {
+                type: "scatter",
+                data: {
+                    datasets: [{
+                        label: 'Data Points',
+                        pointRadius: 6,
+                        pointBackgroundColor: "rgba(0,123,255,0.7)",
+                        pointBorderColor: "rgba(0,123,255,1)",
+                        pointBorderWidth: 2,
+                        data: xyValues
+                    }, {
+                        label: 'Line of Best Fit',
+                        type: 'line',
+                        data: lineValues,
+                        borderColor: "rgba(255,99,132,1)",
+                        borderWidth: 2,
+                        fill: false,
+                        pointRadius: 0,
+                        borderDash: [5, 5]
                     }]
                 },
-                tooltips: {
-                    backgroundColor: "rgba(0,0,0,0.7)",
-                    titleFontColor: "#fff",
-                    bodyFontColor: "#fff",
-                    borderColor: "rgba(0,0,0,0.7)",
-                    borderWidth: 1
+                options: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: "#fff",
+                            fontSize: 14,
+                            fontStyle: 'bold'
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                min: minX,
+                                max: maxX,
+                                fontColor: "#fff",
+                                fontSize: 14
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Average Hours Spent Per Week',
+                                fontColor: "#fff",
+                                fontSize: 16,
+                                fontStyle: 'bold'
+                            },
+                            gridLines: {
+                                color: "rgba(200,200,200,0.2)"
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 50,
+                                max: 100,
+                                fontColor: "#fff",
+                                fontSize: 14
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Average Grade (%)',
+                                fontColor: "#fff",
+                                fontSize: 16,
+                                fontStyle: 'bold'
+                            },
+                            gridLines: {
+                                color: "rgba(200,200,200,0.2)"
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        backgroundColor: "rgba(0,0,0,0.7)",
+                        titleFontColor: "#fff",
+                        bodyFontColor: "#fff",
+                        borderColor: "rgba(0,0,0,0.7)",
+                        borderWidth: 1
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        
+
     </script>
 </body>
 </html>
