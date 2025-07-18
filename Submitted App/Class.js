@@ -1,5 +1,5 @@
 class Class {
-    constructor(dualCredit, subject, usualGrade, prerequisite, duration, semesterOffered, honorsAP, description, ratings = [], comments = [], averageTimePerWeek, icon, className, grades = []) {
+    constructor(dualCredit, subject, usualGrade, prerequisite, duration, semesterOffered, honorsAP, description, ratings = [], comments = [], averageTimePerWeek = [], icon, className, grades = []) {
         this.dualCredit = dualCredit;
         this.subject = subject;
         this.usualGrade = usualGrade;
@@ -80,7 +80,11 @@ class Class {
     getAverageGrade() { return this.averageGrade; }
     getRatings() { return this.ratings; }
     getComments() { return this.comments; }
-    getAverageTimePerWeek() { return this.averageTimePerWeek; }
+    getAverageTimePerWeek() {
+        if (!Array.isArray(this.averageTimePerWeek) || this.averageTimePerWeek.length === 0) return 0;
+        const sum = this.averageTimePerWeek.reduce((acc, val) => acc + val, 0);
+        return sum
+    }
     getIcon() { return this.icon; }
     getClassName() { return this.className; }
     getMainColor(){
