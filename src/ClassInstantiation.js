@@ -1,4 +1,4 @@
-//j
+
 const algebra2 = new Class(
     false,
     "math",
