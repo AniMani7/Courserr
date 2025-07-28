@@ -163,16 +163,11 @@ md-sys-color {
     <div class="classPageFullSpread">
         <div class="classPageHeaderRight">
             <div class="classPageClassName" id="classPageClassName">
-                <div class="classPageName" id="className">Personal Finance</div>
-                <div class="classPageTeacher" id="teachers">Mr. Johnson</div>
+                <div class="classPageName" id="className">Loading...</div>
+                <div class="classPageTeacher" id="teachers">Loading...</div>
             </div>
             <div class="classPageClassRateing" id="starRate">
-                <!-- Example of star rating: replace with your own rating logic -->
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1;font-size: 5vh">star</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1;font-size: 5vh">star</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1;font-size: 5vh">star</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1;font-size: 5vh">star</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 1;font-size: 5vh">star_half</span>
+                <!-- Star rating will be populated dynamically -->
             </div>
         </div>
         <div class="classPageHeaderLeft">
@@ -180,43 +175,34 @@ md-sys-color {
                 <div class="classPageClassPrereq">
                     <h1>Prerequisites</h1>
                     <ul>
-                        <li>Algebra I</li>
-                        <li>Economics (Recommended)</li>
+                        <li>Loading...</li>
                     </ul>
                 </div>
                 <div class="classPageClassTags">
                     <div class="tagsTitle">Tags</div>
                     <md-chip-set class="classPageClassTagsArea">
-                        <md-suggestion-chip label="Practical Skills"></md-suggestion-chip>
-                        <md-suggestion-chip label="Real-Life Scenarios"></md-suggestion-chip>
-                        <md-suggestion-chip label="Easy to Follow"></md-suggestion-chip>
-                        <md-suggestion-chip label="Investing Basics"></md-suggestion-chip>
-                        <md-suggestion-chip label="Budgeting"></md-suggestion-chip>
-                        <md-suggestion-chip label="Credit Scores"></md-suggestion-chip>
+                        <!-- Tags will be populated dynamically -->
                     </md-chip-set>
                 </div>
             </div>
             <div class="classPageClassInfo classPageBORDERS">
                 <h1>Quick Hits</h1>
                 <ul>
-                    <li>Homework: ~2 hours/week</li>
-                    <li>Average Grade: B+</li>
-                    <li>Group Projects: Yes</li>
-                    <li>Test Difficulty: Moderate</li>
-                    <li>Class Engagement: High</li>
-                    <li>Best for Juniors and Seniors</li>
+                    <li>Loading...</li>
                 </ul>
             </div>
         </div>
         
     </div>
-    <div class="classPageHalfSpread classPageClassDecription" style="margin-right: 2vw">
+    <div class="classPageDescriptionGraphContainer">
+        <div class="classPageHalfSpread classPageClassDecription">
             <h1>Description</h1>
-            <p>This course provides students with essential skills for managing their personal finances. Topics include budgeting, saving, investing, understanding credit, and making informed financial decisions. Students will engage in hands-on activities and simulations that reflect real-world financial situations to prepare for life after high school.</p>
+            <p>Loading...</p>
         </div>
         <div class="classPageHalfSpread">
             <canvas id="myChart" class='classPageGraphHalf'></canvas>
         </div>
+    </div>
         
         <div class="commentBox">
             <div class="textt">This class really helped me understand the importance of budgeting and saving for the future. The projects were very practical, and I feel like I’m now better prepared to manage my own finances. However, the workload can get a bit heavy if you fall behind on the weekly assignments.</div>
@@ -372,24 +358,47 @@ function fill(element) {
     element.style.fontVariationSettings = fillValue;
 }
 </script>
+<script src="./loadClass.js"></script>
 <script>
 let course;
   window.onload = function() {
+        console.log('JavaScript is running!');
         // Your onload logic
         const params = new URLSearchParams(window.location.search);
-        const category = params.get('category');
+        let courseName = params.get('course');
         
-        if (category) {
-          course = category.replace("_", " ");
-          populateClassInfo(course);
-            //alert('Category: ' + category);
+        // If course parameter doesn't exist, try category parameter (for backward compatibility)
+        if (!courseName) {
+          courseName = params.get('category');
+          if (courseName) {
+            // Convert underscores back to spaces for category parameter
+            courseName = courseName.replace(/_/g, ' ');
+          }
+        }
+        
+        console.log('Course name from URL: ' + courseName);
+        console.log('displayCourseDetails function exists: ' + (typeof displayCourseDetails));
+        console.log('courseMap exists: ' + (typeof courseMap !== 'undefined'));
+        
+        console.log('Course name from URL:', courseName);
+        console.log('displayCourseDetails function exists:', typeof displayCourseDetails);
+        console.log('courseMap exists:', typeof courseMap !== 'undefined');
+        
+        if (courseName) {
+          course = courseName;
+          if (typeof displayCourseDetails === 'function') {
+            console.log('Calling displayCourseDetails...');
+            displayCourseDetails();
+          } else {
+            console.error('displayCourseDetails function not found');
+          }
+            //console.log('Course: ' + courseName);
         } else {
-            //alert('No category found');
+            console.error('No course found in URL');
+            //console.log('No course found');
         }
     };
-
 </script>
-<script src="./loadClass.js"></script>
 <script>
         const xyValues = [
           {x:13, y:9},  // A+

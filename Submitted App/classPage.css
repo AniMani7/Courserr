@@ -24,7 +24,10 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 3vh;
-  background-color: #13678A;
+  background: linear-gradient(135deg, #13678A 0%, #1a8bb8 100%);
+  box-shadow: 0 8px 32px rgba(19, 103, 138, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
 }
 
 .classPageHalfSpread {
@@ -39,55 +42,106 @@
   background-color: #45C4B0;
 }
 
-.classPageHeaderRight {
-  height: 40vh;
-  width: 40vw;
-}
-.classPageHeaderLeft {
-  height: 40vh;
-  width: 50vw;
+.classPageDescriptionGraphContainer {
+  width: 90vw;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 3vh;
 }
-.classPageClassName {
-  height: 30vh;
-  width: 40vw;
-  padding: 1vw;
-  /* top | right | bottom | left */
-  /*border-width: 4px 2px 0 4px;
-  border-color: black;
-  border-style: solid;*/
-  border-top-left-radius: var(--borderRad) var(--borderRad);;
+
+.classPageDescriptionGraphContainer .classPageHalfSpread {
+  width: 44vw;
+  margin-bottom: 0;
 }
-.classPageClassRateing {
-  height: 10vh;
-  width: 40vw;
-  font-size: 5vh;
-  padding: 1vw;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  /* top | right | bottom | left */
-  /*border-width: 0 2px 4px 4px;
-  border-color: black;
-  border-style: solid;*/
-  border-bottom-left-radius: var(--borderRad) var(--borderRad);; 
+
+@media (max-width: 768px) {
+  .classPageDescriptionGraphContainer {
+    flex-direction: column;
+    width: 90vw;
+  }
   
+  .classPageDescriptionGraphContainer .classPageHalfSpread {
+    width: 90vw;
+    margin-bottom: 3vh;
+  }
 }
+
+.classPageHeaderRight {
+  height: 40vh;
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2vh 1vw;
+}
+
+.classPageHeaderLeft {
+  height: 40vh;
+  width: 45vw;
+  display: flex;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.classPageClassName {
+  height: 40vh;
+  width: 45vw;
+  padding: 4vh 3vw;
+  border-top-left-radius: var(--borderRad) var(--borderRad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.classPageClassRateing {
+  height: 40vh;
+  width: 45vw;
+  font-size: 6vh;
+  padding: 2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom-left-radius: var(--borderRad) var(--borderRad);
+}
+
 .classPageClassRateing > span {
-  margin-right: 2.5vw;
+  margin-right: 1.5vw;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
+
 .classPageName {
-  font-size: 10vh;
-  word-spacing: 9999999px;
+  font-size: 12vh;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  line-height: 1.0;
+  margin-bottom: 2vh;
+  text-align: center;
+  letter-spacing: -0.5px;
 }
+
 .classPageTeacher {
-  font-size: 2.5vh;
-  margin-top: 1vh;
+  font-size: 3.2vh;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 1.5vh;
+  text-align: center;
 }
 .classPageClassInfo {
   height: 40vh;
-  width: 25vw;
+  width: 22.5vw;
+  padding: 1.5vh 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .classPageBORDERS {
   /* top | right | bottom | left */
@@ -98,33 +152,47 @@
   border-bottom-right-radius: var(--borderRad) var(--borderRad);
 }
 .classPageClassPrereq {
-  height: 20vh;
-  overflow-y: scroll;
+  height: 12vh;
+  overflow-y: auto;
+  padding: 0.8vh 0;
   /* top | right | bottom | left */
   /*border-width: 4px 2px 2px 2px;
   border-color: black;
   border-style: solid;*/
 }
 .classPageClassTags {
-  height: 20vh;
-  overflow-y: scroll;
+  height: 12vh;
+  overflow-y: auto;
+  padding: 0.8vh 0;
   /* top | right | bottom | left */
   /*border-width: 2px 2px 4px 2px;
   border-color: black;
   border-style: solid;*/
 } 
+
 .tagsTitle {
-  height: 4vh;
+  height: 3.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5vh;
-  font-weight: bold;
+  font-size: 2.2vh;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8vh;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.8vh;
+  padding: 0.3vh 0.8vw;
 }
+
 .classPageClassTagsArea {
-  padding: 1vw;
-  height: 16vh;
-  
+  padding: 0.5vh 0.3vw;
+  height: 8vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3vh;
+  align-content: flex-start;
 }
 .classPageClassDecription {
   font-size: larger;
@@ -206,21 +274,42 @@
   align-items: center;
 }
 h1 {
-  height: 4vh;
+  height: 3.5vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5vh;
-  font-weight: bold;
+  font-size: 2.2vh;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8vh;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.8vh;
+  padding: 0.3vh 0.8vw;
 }
+
 ul {
-    list-style-type: disc;
-    margin: 20px 0;
-    padding-left: 40px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
+
 li {
-    margin-bottom: 10px;
-    color: black;
+    margin-bottom: 0.8vh;
+    color: #ffffff;
+    font-size: 1.8vh;
+    font-weight: 500;
+    padding: 0.6vh 0.8vw;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 0.6vh;
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.2s ease;
+}
+
+li:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(0.3vw);
 }
 
 .classPageClassInfo > div::-webkit-scrollbar {
@@ -238,4 +327,69 @@ li {
 }
 md-chip-set::-webkit-scrollbar {
   display: none;
+}
+
+/* Custom styling for Material Design chips in the course info section */
+.classPageClassTagsArea md-suggestion-chip {
+  --md-sys-color-primary: #ffffff;
+  --md-sys-color-on-primary: #13678A;
+  --md-suggestion-chip-container-color: rgba(255, 255, 255, 0.9);
+  --md-suggestion-chip-label-text-color: #13678A;
+  --md-suggestion-chip-hover-container-color: rgba(255, 255, 255, 1);
+  --md-suggestion-chip-pressed-container-color: rgba(255, 255, 255, 0.8);
+  margin: 0.2vh 0.2vw;
+  font-weight: 600;
+  font-size: 1.4vh;
+  border-radius: 1.2vh;
+  transition: all 0.2s ease;
+  padding: 0.3vh 0.6vw;
+}
+
+.classPageClassTagsArea md-suggestion-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .classPageName {
+    font-size: 8vh;
+  }
+  
+  .classPageTeacher {
+    font-size: 2.4vh;
+  }
+  
+  .classPageClassInfo {
+    padding: 1vh 0.8vw;
+  }
+  
+  h1 {
+    font-size: 2vh;
+    height: 3vh;
+  }
+  
+  li {
+    font-size: 1.6vh;
+    padding: 0.5vh 0.6vw;
+  }
+  
+  .tagsTitle {
+    font-size: 2vh;
+    height: 3vh;
+  }
+  
+  .classPageClassTagsArea md-suggestion-chip {
+    font-size: 1.3vh;
+  }
+  
+  .classPageHeaderRight,
+  .classPageHeaderLeft {
+    width: 50vw;
+  }
+  
+  .classPageClassName,
+  .classPageClassRateing {
+    width: 50vw;
+  }
 }

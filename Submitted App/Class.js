@@ -68,7 +68,7 @@ class Class {
     // Find the closest letter grade
     const averageLetter = valueToLetter.find(v => avg >= v.min).letter;
     this.averageGrade = averageLetter;
-    return
+    return averageLetter;
 }
     // Getters
     getDualCredit() { return this.dualCredit; }

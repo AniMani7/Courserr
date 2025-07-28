@@ -83,7 +83,7 @@ md-sys-color {
 
 </head>
 
-<body onload="load();dothing()" style="background-color: var(--light-bg)" id="body">
+<body onload="load();setTimeout(dothing, 100)" style="background-color: var(--light-bg)" id="body">
     <div class="container" id="fullHeightDiv">
       <img src="menuIcon.png" class="menuMobile openMenu" id="lines" onclick="openClose(true)">
           <img src="closeIcon.png" class="menuMobile closeMenu" id="exes" onclick="openClose(false)">
@@ -123,14 +123,7 @@ md-sys-color {
                 </div>
                 <div>
                   <md-chip-set class="filterArea">
-                  <span class="filterChip">  <md-filter-chip label="English" onclick="filter(this.label)"></md-filter-chip></span>
-                  <span class="filterChip">  <md-filter-chip label="Math" onclick="filter(this.label)"></md-filter-chip></span>
-                  <span class="filterChip">  <md-filter-chip label="Music" onclick="filter(this.label)"></md-filter-chip></span>
-                  <span class="filterChip">  <md-filter-chip label="Science" onclick="filter(this.label)"></md-filter-chip></span>
-                  <span class="filterChip">  <md-filter-chip label="History" onclick="filter(this.label)"></md-filter-chip></span>
-                  <span class="filterChip">  <md-filter-chip label="Arts" onclick="filter(this.label)"></md-filter-chip></span>
-                  <span class="filterChip">  <md-filter-chip label="Bookmarked" onclick="filter(this.label)"></md-filter-chip></span>
-                  
+                  <!-- Filter buttons will be generated dynamically -->
                 </md-chip-set>
                 </div>
             <!--    <div class="profileHolder">

@@ -202,7 +202,7 @@ const AgResearchAndDevelopmentCapstone = new Class(
 
 const courseMap = new Map();
 courseMap.set("Introduction to Agriscience",introductionToAgriscience);
-courseMap.set("Agriculture, Food, & Natural Resources", AgricultureFoodNaturalResources);
+courseMap.set("Agriculture, Food, & Natural Resources", AgricultureFoodAndNaturalResources);
 courseMap.set("Natural Resources", NaturalResources);
 courseMap.set("Animal Science", AnimalScience);
 courseMap.set("Plant Science", PlantScience);
@@ -212,3 +212,29 @@ courseMap.set("Agricultural Business Foundation", AgriculturalBusinessFoundation
 courseMap.set("Advanced Animal Science", AdvancedAnimalScience);
 courseMap.set("Advanced Plant Science", AdvancedPlantScience);
 courseMap.set("Ag Research & Development Capstone", AgResearchAndDevelopmentCapstone);
+
+// Helper function to easily add new classes
+function addNewClass(classObject, className) {
+    courseMap.set(className, classObject);
+    console.log(`Added new class: ${className}`);
+}
+
+// Example of how to add a new class:
+// const newClass = new Class(
+//     false, // dualCredit
+//     "Agriculture", // subject
+//     "10,11", // usualGrade
+//     "None", // prerequisite
+//     "Semester", // duration
+//     "Both", // semesterOffered
+//     "None", // honorsAP
+//     "Description of the new class", // description
+//     [4.0, 3.5], // ratings
+//     ["Great class!", "Very informative"], // comments
+//     [3, 2], // averageTimePerWeek
+//     "calculate", // icon
+//     "New Class Name", // className
+//     ['A', 'B+'], // grades
+//     [3, 4] // classDifficulty
+// );
+// addNewClass(newClass, "New Class Name");
