@@ -105,8 +105,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom-left-radius: var(--borderRad) var(--borderRad);
 }
 
@@ -116,14 +114,22 @@
 }
 
 .classPageName {
-  font-size: 12vh;
+  font-size: 22vh;
   font-weight: 900;
   color: #ffffff;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  line-height: 1.0;
+  line-height: 0.85;
   margin-bottom: 2vh;
   text-align: center;
   letter-spacing: -0.5px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .classPageTeacher {
@@ -138,10 +144,11 @@
 .classPageClassInfo {
   height: 40vh;
   width: 22.5vw;
-  padding: 1.5vh 1vw;
+  padding: 1vh 0.8vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 1vh;
 }
 .classPageBORDERS {
   /* top | right | bottom | left */
@@ -152,18 +159,19 @@
   border-bottom-right-radius: var(--borderRad) var(--borderRad);
 }
 .classPageClassPrereq {
-  height: 12vh;
+  height: 8vh;
   overflow-y: auto;
-  padding: 0.8vh 0;
+  padding: 0.5vh 0;
   /* top | right | bottom | left */
   /*border-width: 4px 2px 2px 2px;
   border-color: black;
   border-style: solid;*/
 }
 .classPageClassTags {
-  height: 12vh;
+  height: 10vh;
   overflow-y: auto;
-  padding: 0.8vh 0;
+  padding: 0.5vh 0;
+  margin-top: auto;
   /* top | right | bottom | left */
   /*border-width: 2px 2px 4px 2px;
   border-color: black;
@@ -171,27 +179,27 @@
 } 
 
 .tagsTitle {
-  height: 3.5vh;
+  height: 3vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.2vh;
+  font-size: 2vh;
   font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 0.8vh;
+  margin-bottom: 0.5vh;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 0.8vh;
-  padding: 0.3vh 0.8vw;
+  border-radius: 0.6vh;
+  padding: 0.2vh 0.6vw;
 }
 
 .classPageClassTagsArea {
-  padding: 0.5vh 0.3vw;
-  height: 8vh;
+  padding: 0.3vh 0.2vw;
+  height: 6vh;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3vh;
+  gap: 0.2vh;
   align-content: flex-start;
 }
 .classPageClassDecription {
@@ -201,10 +209,22 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  background-color: #45C4B0;
+  color: #000000;
 }
+
+.classPageClassDecription > h1 {
+  color: #000000;
+  background: rgba(0, 0, 0, 0.1);
+  margin-bottom: 2vh;
+}
+
 .classPageClassDecription > p {
   padding: 0 2.5vw 0 2.5vw;
-  
+  color: #000000;
+  font-size: 2.2vh;
+  line-height: 1.6;
+  font-weight: 400;
 }
 .classPageGraphHalf {
   height: 100%;
@@ -212,6 +232,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #45C4B0;
+  border-radius: var(--borderRad);
+  padding: 1.5vh 1.5vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.classPageGraphHalf::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
+  border-radius: var(--borderRad);
+}
+
+#myChart {
+  max-height: 90%;
+  max-width: 90%;
+  height: auto !important;
+  width: auto !important;
+  position: relative;
+  z-index: 1;
+  border-radius: calc(var(--borderRad) - 0.5vh);
+  background-color: #ffffff;
+  padding: 1.5vh 1.5vw;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .commentBox {
@@ -222,10 +273,11 @@
   border-radius: var(--borderRad);
   display: grid;
   grid-template: 
-                      "ratee textt textt" 4vh
-                      "ratee textt textt" 8vh
-                      "ratee tagss symbols" 6vh / 15vw 60vw 15vw;
+                      "ratee textt" 18vh / 20vw 70vw;
+  align-items: center;
+  justify-items: center;
 }
+
 .overall {
   grid-area: overall;
   /*background-color: red;*/
@@ -235,6 +287,7 @@
   font-size: 2.5vh;
   padding-top: 4vh;
 }
+
 .textt {
   grid-area: textt;
   /*background-color: yellow;*/
@@ -242,9 +295,14 @@
   justify-content: center;
   align-items: center;
   font-size: 2.3vh;
-  padding: 1%;
-  
+  padding: 2vh 2vw;
+  text-align: center;
+  max-width: 100%;
+  word-wrap: break-word;
+  line-height: 1.4;
+  margin-left: 2vw;
 }
+
 .ratee {
   grid-area: ratee;
   display: flex;
@@ -252,27 +310,10 @@
   align-items: center;
   /*background-color: orange;*/
   font-size: 8vh;
+  font-weight: bold;
+  margin-right: 2vw;
 }
-.tagss {
-  grid-area: tagss;
-  /*background-color: green;*/
-  display: flex;
-  flex-wrap: nowrap; 
-  justify-content: center; 
-  align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  padding-left: 1vw;
-}
-.symbols {
-  padding: 5%;
-  grid-area: symbols;
-  /*background-color: blue;*/
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 h1 {
   height: 3.5vh;
   display: flex;
@@ -353,7 +394,9 @@ md-chip-set::-webkit-scrollbar {
 /* Responsive design for mobile */
 @media (max-width: 768px) {
   .classPageName {
-    font-size: 8vh;
+    font-size: 14vh;
+    line-height: 0.9;
+    -webkit-line-clamp: 3;
   }
   
   .classPageTeacher {
@@ -361,26 +404,27 @@ md-chip-set::-webkit-scrollbar {
   }
   
   .classPageClassInfo {
-    padding: 1vh 0.8vw;
+    padding: 0.8vh 0.6vw;
+    gap: 0.8vh;
   }
   
   h1 {
-    font-size: 2vh;
-    height: 3vh;
+    font-size: 1.8vh;
+    height: 2.5vh;
   }
   
   li {
-    font-size: 1.6vh;
-    padding: 0.5vh 0.6vw;
+    font-size: 1.5vh;
+    padding: 0.4vh 0.5vw;
   }
   
   .tagsTitle {
-    font-size: 2vh;
-    height: 3vh;
+    font-size: 1.8vh;
+    height: 2.5vh;
   }
   
   .classPageClassTagsArea md-suggestion-chip {
-    font-size: 1.3vh;
+    font-size: 1.2vh;
   }
   
   .classPageHeaderRight,
@@ -391,5 +435,9 @@ md-chip-set::-webkit-scrollbar {
   .classPageClassName,
   .classPageClassRateing {
     width: 50vw;
+  }
+  
+  .classPageClassDecription > p {
+    font-size: 1.8vh;
   }
 }

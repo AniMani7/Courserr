@@ -81,6 +81,7 @@ class Class {
     getAverageGrade() { return this.averageGrade; }
     getRatings() { return this.ratings; }
     getComments() { return this.comments; }
+    getGrades() { return this.grades; }
     getAverageTimePerWeek() {
         if (!Array.isArray(this.averageTimePerWeek) || this.averageTimePerWeek.length === 0) return 0;
         const sum = this.averageTimePerWeek.reduce((acc, val) => acc + val, 0);

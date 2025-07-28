@@ -5,25 +5,19 @@ let currentAnimations = [];
 const unfilled= "style=\"font-variation-settings:'FILL' 0\"";
 
 
-function load() {
-  if(sessionStorage.getItem("bookmarks") === null) {
-    bookmarks = [];
-} else {
-  bookmarks = sessionStorage.getItem("bookmarks").split(",");
-}
-}
-
 function updateFilterButtons() {
   // Get all unique subjects from the courseMap
   const allCourses = Array.from(courseMap.values());
   const subjects = [...new Set(allCourses.map(course => course.getSubject()))];
+  
+  console.log("Available subjects:", subjects);
   
   // Find the filter area
   const filterArea = document.querySelector('.filterArea');
   if (filterArea) {
     let filterHTML = '';
     
-    // Add subject filters
+    // Add subject filters dynamically
     subjects.forEach(subject => {
       filterHTML += `<span class="filterChip"><md-filter-chip label="${subject}" onclick="filter(this.label)"></md-filter-chip></span>`;
     });
@@ -32,7 +26,33 @@ function updateFilterButtons() {
     filterHTML += `<span class="filterChip"><md-filter-chip label="Bookmarked" onclick="filter(this.label)"></md-filter-chip></span>`;
     
     filterArea.innerHTML = filterHTML;
+    
+    // Update the visual state of all filter chips based on current filters
+    const filterChips = document.querySelectorAll('md-filter-chip');
+    filterChips.forEach(chip => {
+      const chipLabel = chip.label.toLowerCase();
+      if (curentFilters.includes(chipLabel)) {
+        chip.selected = true;
+      } else {
+        chip.selected = false;
+      }
+    });
   }
+}
+
+function load() {
+  if(sessionStorage.getItem("bookmarks") === null) {
+    bookmarks = [];
+  } else {
+    bookmarks = sessionStorage.getItem("bookmarks").split(",");
+  }
+  curentFilters = [];
+  console.log("Page loaded, bookmarks and filters initialized");
+  
+  // Initialize filter chip states after a short delay to ensure DOM is ready
+  setTimeout(() => {
+    updateFilterButtons();
+  }, 100);
 }
 
 function dothing() {
@@ -53,8 +73,9 @@ function dothing() {
   const allCourses = Array.from(courseMap.values());
   console.log("Total courses loaded:", allCourses.length);
   console.log("All course names:", allCourses.map(c => c.getClassName()));
+  console.log("Current filters:", curentFilters);
   
-  if(curentFilters.length ===0) {
+  if(curentFilters.length === 0) {
      for (let i = 0; i < allCourses.length; i++) {
             const course = allCourses[i];
             console.log("Processing course:", course.getClassName());
@@ -67,23 +88,32 @@ function dothing() {
   } else {
     for (let i = 0; i < allCourses.length; i++) {
             const course = allCourses[i];
-            if(curentFilters.includes("bookmarked")) {
-              if(bookmarks.includes(course.getClassName())) {
-                totalHTML += makeHTML(course, true);
-              }
-            } 
-            if(curentFilters.includes(course.getSubject())) {
-              if(curentFilters.includes("bookmarked")) {
-                
-              } else {
-            if(bookmarks.includes(course.getClassName())) {
-                  totalHTML += makeHTML(course, true);
-                } else {
-                  totalHTML += makeHTML(course, false);
+            let shouldShow = false;
+            
+            // Check if course matches any of the active filters
+            for (let j = 0; j < curentFilters.length; j++) {
+              const filter = curentFilters[j];
+              
+              if (filter === "bookmarked") {
+                // Show only bookmarked courses
+                if (bookmarks.includes(course.getClassName())) {
+                  shouldShow = true;
+                  break;
                 }
-            }
+              } else if (filter.toLowerCase() === course.getSubject().toLowerCase()) {
+                // Show courses matching this subject
+                shouldShow = true;
+                break;
+              }
             }
             
+            if (shouldShow) {
+              if(bookmarks.includes(course.getClassName())) {
+                totalHTML += makeHTML(course, true);
+              } else {
+                totalHTML += makeHTML(course, false);
+              }
+            }
     }
   }
     body.innerHTML = totalHTML;
@@ -148,15 +178,31 @@ function loopThroughClasses() {
 
 function filter(type) {
   let body = document.getElementById('classGrid');
-  if(curentFilters.includes(type.toLowerCase())) {
-    curentFilters[curentFilters.indexOf(type.toLowerCase())] = "";
+  const filterType = type.toLowerCase();
+  
+  if(curentFilters.includes(filterType)) {
+    curentFilters[curentFilters.indexOf(filterType)] = "";
   } else {
-    curentFilters.push(type.toLowerCase());
+    curentFilters.push(filterType);
   }
   curentFilters = curentFilters.filter(item => item !== "");
+  
+  console.log("Filter applied:", type, "Current filters:", curentFilters);
+  
+  // Update the visual state of the filter chip
+  const filterChips = document.querySelectorAll('md-filter-chip');
+  filterChips.forEach(chip => {
+    if (chip.label.toLowerCase() === filterType) {
+      if (curentFilters.includes(filterType)) {
+        chip.selected = true;
+      } else {
+        chip.selected = false;
+      }
+    }
+  });
+  
   body.innerHTML = "";
   dothing();
-
 }
 
 function shuffleArray(array) {
@@ -169,10 +215,25 @@ function shuffleArray(array) {
     return array;
 }
 
+function fav(element) {
+   let fillValue;
+   //alert(element.id);
+    if (element.style.cssText.includes("1")) {
+        fillValue = "'FILL' 0";  // If it's filled, switch to unfilled.
+        bookmarks[bookmarks.indexOf(element.id)] = "";
+    } else {
+        fillValue = "'FILL' 1";  // If it's unfilled, switch to filled.
+        bookmarks.push(element.id);
+    }
+    element.style.fontVariationSettings = fillValue;
+    bookmarks = bookmarks.filter(item => item !== "");
+    sessionStorage.setItem("bookmarks", bookmarks);
+    //alert(sessionStorage.getItem("bookmarks"));
+}
+
 function openClass(className) {
-    // Navigate to class page with the course name
-    alert('openClass called with: ' + className);
-    console.log('openClass called with:', className);
-    window.location.href = `classPage.html?course=${encodeURIComponent(className)}`;
+    //alert(classToOpen);
+    let modify = className.replace(" ", "_");
+    window.location.href = './classPage.html?category=' + encodeURIComponent(modify);
 }
 

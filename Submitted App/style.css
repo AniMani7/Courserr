@@ -209,7 +209,37 @@ body {
 
 .filterChip {
   display: inline-block;
+  margin: 0 0.5vw;
 }
+
+/* Material Design Filter Chip Styling */
+md-filter-chip {
+  transition: all 0.3s ease;
+  --md-sys-color-primary: #2196F3;
+  --md-sys-color-on-primary: white;
+  --md-sys-color-surface: rgba(255, 255, 255, 0.8);
+  --md-sys-color-on-surface: #333;
+  --md-sys-color-outline: #ccc;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: #333 !important;
+}
+
+md-filter-chip[selected] {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+md-filter-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+md-filter-chip[selected]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove the duplicate selected styling that was causing progressive blue */
 /* Classes Grid */
 .class-grid {
   /* top | right | bottom | left */
@@ -348,6 +378,10 @@ span {
   background: #7f995a;
   /*background-color: rgba(235, 202, 101, 0.75);*/
   color: #55663c;
+}
+.agriculture {
+  background: #4CAF50;
+  color: #2E7D32;
 }
 .music {
   /*background: #42A6A9;*/

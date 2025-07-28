@@ -133,8 +133,8 @@ md-sys-color {
           <div class="sidebarItem home">
             <img src="homeIconFill.png" class="menuPic" onclick="window.location.href = './index.html'">Home
           </div>
-          <div class="sidebarItem home">
-            <img src="accountIconFill.png" class="menuPic">Account
+          <div class="sidebarItem home" onclick="window.open('https://forms.gle/BzNknKsfrAYHzkww7', '_blank').focus();">
+            <img src="accountIconFill.png" class="menuPic">Rate a class
           </div>
           <div class="sidebarItem home">
             <img src="handbookIconFill.png" class="menuPic" onclick="window.open('./handbook.pdf').focus();">Handbook
@@ -204,55 +204,8 @@ md-sys-color {
         </div>
     </div>
         
-        <div class="commentBox">
-            <div class="textt">This class really helped me understand the importance of budgeting and saving for the future. The projects were very practical, and I feel like I’m now better prepared to manage my own finances. However, the workload can get a bit heavy if you fall behind on the weekly assignments.</div>
-            <div class="ratee">3.4</div>
-            <md-chip-set class="tagss">
-                <md-suggestion-chip label="Practical"></md-suggestion-chip>
-                <md-suggestion-chip label="Challenging"></md-suggestion-chip>
-                <md-suggestion-chip label="Engaging"></md-suggestion-chip>
-                <md-suggestion-chip label="Budgeting Skills"></md-suggestion-chip>
-                <md-suggestion-chip label="Time Management"></md-suggestion-chip>
-            </md-chip-set>
-            <div class="symbols">
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">thumb_up</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">thumb_down</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">flag</span>
-            </div>
-        </div>
-        
-        <div class="commentBox">
-            <div class="textt">The investment unit was super interesting, and I learned a lot about how to grow my money safely. I just wish there was more time to dive deeper into different types of stocks and bonds. Overall, though, the class was engaging and fun.</div>
-            <div class="ratee">4.2</div>
-            <md-chip-set class="tagss">
-                <md-suggestion-chip label="Investing Basics"></md-suggestion-chip>
-                <md-suggestion-chip label="Needs More Depth"></md-suggestion-chip>
-                <md-suggestion-chip label="Interesting"></md-suggestion-chip>
-                <md-suggestion-chip label="Engaging"></md-suggestion-chip>
-                <md-suggestion-chip label="Good for Future Planning"></md-suggestion-chip>
-            </md-chip-set>
-            <div class="symbols">
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">thumb_up</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">thumb_down</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">flag</span>
-            </div>
-        </div>
-        
-        <div class="commentBox">
-            <div class="textt">I wasn’t expecting to enjoy a finance class, but Mr. Johnson made it really fun! The discussions were engaging, and I really liked the group projects. Sometimes the homework was a bit much, but it was definitely worth it. I feel like I understand how to manage debt and credit now, which is super useful.</div>
-            <div class="ratee">5.0</div>
-            <md-chip-set class="tagss">
-                <md-suggestion-chip label="Fun Teacher"></md-suggestion-chip>
-                <md-suggestion-chip label="Group Projects"></md-suggestion-chip>
-                <md-suggestion-chip label="Credit Management"></md-suggestion-chip>
-                <md-suggestion-chip label="Homework Heavy"></md-suggestion-chip>
-                <md-suggestion-chip label="Practical Skills"></md-suggestion-chip>
-            </md-chip-set>
-            <div class="symbols">
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">thumb_up</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">thumb_down</span>
-                <span class="material-symbols-rounded" style="font-variation-settings:'FILL' 0; font-size: 5vh" onclick="fill(this)">flag</span>
-            </div>
+        <div id="commentsContainer">
+            <!-- Comments will be generated dynamically here -->
         </div>
         
         
@@ -399,139 +352,5 @@ let course;
         }
     };
 </script>
-<script>
-        const xyValues = [
-          {x:13, y:9},  // A+
-          {x:12, y:8},  // A
-          {x:11, y:7},  // A-
-          {x:10, y:6},  // B+
-          {x:9, y:5},   // B
-          {x:8, y:4},   // B-
-          {x:7, y:3},   // C+
-          {x:6, y:2},   // C
-          {x:5, y:1},   // C-
-          {x:4, y:6},   // D+
-          {x:3, y:5},   // D
-          {x:2, y:4},   // D-
-          {x:1, y:3}    // F
-        ];
-
-        function linearRegression(xyValues) {
-          let n = xyValues.length;
-          let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-
-          xyValues.forEach(point => {
-            sumX += point.x;
-            sumY += point.y;
-            sumXY += point.x * point.y;
-            sumX2 += point.x * point.x;
-          });
-
-          let slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-          let intercept = (sumY - slope * sumX) / n;
-
-          return { slope, intercept };
-        }
-
-        const { slope, intercept } = linearRegression(xyValues);
-
-        const lineValues = [];
-        for (let x = 1; x <= 13; x++) {
-          lineValues.push({ x: x, y: slope * x + intercept });
-        }
-
-        new Chart("myChart", {
-          type: "scatter",
-          data: {
-            datasets: [{
-              label: 'Data Points',
-              pointRadius: 6,
-              pointBackgroundColor: "rgba(0,123,255,0.7)",
-              pointBorderColor: "rgba(0,123,255,1)",
-              pointBorderWidth: 2,
-              data: xyValues
-            }, {
-              label: 'Line of Best Fit',
-              type: 'line',
-              data: lineValues,
-              borderColor: "rgba(255,99,132,1)",
-              borderWidth: 2,
-              fill: false,
-              pointRadius: 0,
-              borderDash: [5, 5]
-            }]
-          },
-          options: {
-            legend: {
-              display: true,
-              labels: {
-                fontColor: "#000000",
-                fontSize: 14,
-                fontStyle: 'bold'
-              }
-            },
-            scales: {
-              xAxes: [{
-                ticks: {
-                  min: 1,
-                  max: 13,
-                  callback: function(value) {
-                    const grades = {
-                      1: 'F', 2: 'D-', 3: 'D', 4: 'D+', 5: 'C-', 6: 'C', 7: 'C+', 
-                      8: 'B-', 9: 'B', 10: 'B+', 11: 'A-', 12: 'A', 13: 'A+'
-                    };
-                    return grades[value];
-                  },
-                  fontColor: "#000000",
-                  fontSize: 14
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Grade',
-                  fontColor: "#000000",
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                gridLines: {
-                  color: "rgba(200,200,200,0.2)"
-                }
-              }],
-              yAxes: [{
-                ticks: {
-                  min: 1,
-                  max: 10,
-                  fontColor: "#000000",
-                  fontSize: 14
-                },
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Satisfaction',
-                  fontColor: "#000000",
-                  fontSize: 16,
-                  fontStyle: 'bold'
-                },
-                gridLines: {
-                  color: "rgba(200,200,200,0.2)"
-                }
-              }]
-            },
-            layout: {
-              padding: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10
-              }
-            },
-            tooltips: {
-              backgroundColor: "rgba(0,0,0,0.7)",
-              titleFontColor: "#000000",
-              bodyFontColor: "#000000",
-              borderColor: "rgba(0,0,0,0.7)",
-              borderWidth: 1
-            }
-          }
-        });
-    </script>
 </body >
 </html>
