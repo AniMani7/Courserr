@@ -14,7 +14,7 @@ const introductionToAgriscience = new Class(
     "Introduction to Agriscience", // className
     ['A','B','C', 'D-'],// grades
     [4,3,2], //classDifficulty
-    ["Hands-on Learning", "Practical Skills", "Science-based", "Career Preparation", "jsodknwokndkoneokfneoifn","jspdjpwjdpow"] // tags
+    ["Hands-on Learning", "Practical Skills", "Science-based", "Career Preparation"] // tags
 );
 
 const AgricultureFoodAndNaturalResources = new Class(
