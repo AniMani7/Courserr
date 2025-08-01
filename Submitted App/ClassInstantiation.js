@@ -13,7 +13,8 @@ const introductionToAgriscience = new Class(
     "calculate", // icon
     "Introduction to Agriscience", // className
     ['A','B','C', 'D-'],// grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Practical Skills", "Science-based", "Career Preparation", "jsodknwokndkoneokfneoifn","jspdjpwjdpow"] // tags
 );
 
 const AgricultureFoodAndNaturalResources = new Class(
@@ -31,7 +32,8 @@ const AgricultureFoodAndNaturalResources = new Class(
     "calculate", // icon
     "Agriculture, Food, & Natural Resources", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Practical Skills", "Science-based", "Career Preparation"] // tags
 );
 
 const NaturalResources = new Class(
@@ -49,7 +51,8 @@ const NaturalResources = new Class(
     "calculate", // icon
     "Natural Resources", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Environmental Science", "Conservation", "Natural Resources"] // tags
 );
 
 const AnimalScience = new Class(
@@ -67,7 +70,8 @@ const AnimalScience = new Class(
     "calculate", // icon
     "Animal Science", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Animal Care", "Biology", "Practical Skills"] // tags
 );
 const PlantScience = new Class(
     false, // dualCredit
@@ -84,7 +88,8 @@ const PlantScience = new Class(
     "calculate", // icon
     "Plant Science", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Plant Biology", "Horticulture", "Landscaping"] // tags
 ); 
 const FoodScienceAndSafety = new Class(
     false, // dualCredit
@@ -101,7 +106,8 @@ const FoodScienceAndSafety = new Class(
     "calculate", // icon
     "Food Science & Safety", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Food Safety", "Chemistry", "Industry Skills"] // tags
 ); 
 
 const AgriculturalPowerAndTechnology = new Class(
@@ -119,7 +125,8 @@ const AgriculturalPowerAndTechnology = new Class(
     "calculate", // icon
     "Agricultural Power and Technology", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Hands-on Learning", "Engineering", "Technology", "Mechanics"] // tags
 );
 
 const AgriculturalBusinessFoundation = new Class(
@@ -137,7 +144,8 @@ const AgriculturalBusinessFoundation = new Class(
     "calculate", // icon
     "Agricultural Business Foundation", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Business Skills", "Mathematics", "Entrepreneurship", "Management"] // tags
 );
 
 const AdvancedAnimalScience = new Class(
@@ -155,7 +163,8 @@ const AdvancedAnimalScience = new Class(
     "calculate", // icon
     "Advanced Animal Science", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Advanced Biology", "Animal Industry", "Global Market", "Dual Credit"] // tags
 );
 
 const AdvancedPlantScience = new Class(
@@ -173,7 +182,8 @@ const AdvancedPlantScience = new Class(
     "calculate", // icon
     "Advanced Plant Science", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Advanced Biology", "Crop Production", "Plant Genetics", "Dual Credit"] // tags
 );
 
 const AgResearchAndDevelopmentCapstone = new Class(
@@ -191,7 +201,8 @@ const AgResearchAndDevelopmentCapstone = new Class(
     "calculate", // icon
     "Ag Research & Development Capstone", // className
     ['A+','B-','A'], // grades
-    [4,3,2] //classDifficulty
+    [4,3,2], //classDifficulty
+    ["Research", "Critical Thinking", "Problem Solving", "Capstone"] // tags
 );
 
 

@@ -349,53 +349,73 @@ md-filter-chip[selected]:hover {
 span {
   user-select: none;
 }
-.history {
-  /*background: #81A489;*/
-  background: #9d5cbd;
-  /*background-color: rgba(129, 164, 137, 0.75);*/
-  color: #72438a;
+
+/* Subject Color Styles - unified and visually meaningful */
+
+/* Subject Color Styles - all lowercase for mapping */
+.agriculture {
+  background: #8bc34a !important; /* green for agriculture */
+  color: #3e5c1c !important;
+}
+.appliedsciences, .technology, .engineering, .manufacturing {
+  background: #607d8b !important; /* blue-grey for STEM */
+  color: #263238 !important;
+}
+.arteducation, .arts {
+  background: #ffb74d !important; /* orange for art */
+  color: #7c4700 !important;
+}
+.business, .finance, .marketing, .management {
+  background: #ffd600 !important; /* gold for business */
+  color: #7c6f00 !important;
+}
+.career, .technicaleducation {
+  background: #bdbdbd !important; /* grey for CTE */
+  color: #333 !important;
 }
 .english {
-  /*background: #F2A054;*/
-  /*background-color: rgba(208, 101, 235, 0.75);*/
-  background: #7a98de;
-  color: #5e75ab;
+  background: #7a98de !important;
+  color: #5e75ab !important;
 }
-.math {
-  /*background: #F1D8B5;*/
-  background: #96b9e4;
-  /*background-color: rgba(101, 235, 105, 0.75);*/
-  color: #203957;
+.health {
+  background: #e57373 !important; /* red for health */
+  color: #7f2323 !important;
 }
-.arts {
-  /*background: #C04D31;*/
-  background: #2bcbc9;
-  /*background-color: rgba(235, 101, 101, 0.75);*/
-  color: #209997;
+.humanservices {
+  background: #f8bbd0 !important; /* pink for human services */
+  color: #7c3f58 !important;
 }
-.science {
-  /*background: #8043AD;*/
-  background: #cdf199;
-  /*background-color: rgba(235, 202, 101, 0.75);*/
-  color: #55663c;
+.informationsolutions {
+  background: #00bcd4 !important; /* cyan for info tech */
+  color: #004d56 !important;
 }
-.agriculture {
-  background: #4CAF50;
-  color: #2E7D32;
+.mathematics, .math {
+  background: #335a8a !important;
+  color: #203957 !important;
 }
 .music {
-  /*background: #42A6A9;*/
-  background: #ffe99b;
-  /*background-color: rgba(101, 235, 231, 0.75);*/
-  color: #ab9649;
+  background: #ddc260 !important;
+  color: #ab9649 !important;
 }
-.foreignLanguage {
-  background: #e99ca5;
-  color: #b57980;
+.physicaleducation {
+  background: #aed581 !important; /* light green for PE */
+  color: #33691e !important;
+}
+.science {
+  background: #7f995a !important;
+  color: #55663c !important;
+}
+.socialstudies, .history {
+  background: #5b135a !important;
+  color: #290928 !important;
+}
+.worldlanguage, .foreignlanguage {
+  background: #e99ca5 !important;
+  color: #b57980 !important;
 }
 .misc {
-  background: #ff7daf;
-  color: #8f0339;
+  background: #c3044c !important;
+  color: #8f0339 !important;
 }
 
 .closeMenu {

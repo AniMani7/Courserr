@@ -1,5 +1,5 @@
 class Class {
-    constructor(dualCredit, subject, usualGrade, prerequisite, duration, semesterOffered, honorsAP, description, ratings = [], comments = [], averageTimePerWeek = [], icon, className, grades = [], classDifficulty = []) {
+    constructor(dualCredit, subject, usualGrade, prerequisite, duration, semesterOffered, honorsAP, description, ratings = [], comments = [], averageTimePerWeek = [], icon, className, grades = [], classDifficulty = [], tags = []) {
         this.dualCredit = dualCredit;
         this.subject = subject;
         this.usualGrade = usualGrade;
@@ -18,6 +18,7 @@ class Class {
         this.averageGrade = this.calculateAverageGradeFromLetters(this.grades);
         this.semesterOffered = semesterOffered; // 'Both', 'Fall', 'Spring'
         this.classDifficulty = classDifficulty; // Array of difficulty ratings
+        this.tags = tags; // Array of tags for this class
     }
 
     validateRating(rating) {
@@ -103,6 +104,8 @@ class Class {
         const sum = this.classDifficulty.reduce((acc, val) => acc + val, 0);
         return sum
     }
+    
+    getTags() { return this.tags; }
 
     // Display info in JSON format
     toJSON() {
@@ -120,7 +123,8 @@ class Class {
             comments: this.comments,
             averageTimePerWeek: this.averageTimePerWeek,
             icon: this.icon,
-            className: this.className
+            className: this.className,
+            tags: this.tags
         }, null, 2); // Indent with 2 spaces for readability
     }
 }

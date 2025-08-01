@@ -122,23 +122,25 @@ function dothing() {
 function makeHTML(course, fill) {
   let bodyHTML = "";
   console.log('makeHTML called for course:', course.getClassName());
-  
-  if(fill === true) {
-            let classCardDiv = "<div class=\"classCard " + course.getSubject() + "\" onclick=\"openClass(\'" + course.getClassName() + "\')\" >";
-            let headerDiv = "<div class=\"classHeader\">" + "<span class=\"material-symbols-rounded\"" + unfilled + ">" + course.getIcon() + "</span><div class=\"className\" onclick=\"openClass(\'" + course.getClassName() + "\')\"><u>" + course.getClassName() + "</u></div><span class=\"material-symbols-rounded\" style=\"cursor: pointer;font-variation-settings:'FILL' 1\" onclick=\"fav(this)\" id=\"" + course.getClassName() + "\">bookmark</span></div>";
-            let starDiv = "<div class=\"classRate\">" + numberToStars(course.getAverageRating()) + "</div>";
-            let descriptionDiv = "<div class=\"classDes\">" + course.getDescription() + "</div></div>";
-            let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
-            bodyHTML += htmlCard;
+  // Always use lowercase, no spaces, for subject class assignment
+  const subjectClass = course.getSubject().replace(/\s+/g, '').toLowerCase();
+  if (fill === true) {
+    let classCardDiv = `<div class="classCard ${subjectClass}" onclick="openClass('${course.getClassName()}')" >`;
+    let headerDiv = `<div class="classHeader">` + `<span class="material-symbols-rounded"${unfilled}>${course.getIcon()}</span><div class="className" onclick="openClass('${course.getClassName()}')"><u>${course.getClassName()}</u></div><span class="material-symbols-rounded" style="cursor: pointer;font-variation-settings:'FILL' 1" onclick="fav(this)" id="${course.getClassName()}">bookmark</span></div>`;
+    // Add subjectClass to classRate for color
+    let starDiv = `<div class="classRate ${subjectClass}">` + numberToStars(course.getAverageRating()) + `</div>`;
+    let descriptionDiv = `<div class="classDes">${course.getDescription()}</div></div>`;
+    let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
+    bodyHTML += htmlCard;
   } else {
-    let classCardDiv = "<div class=\"classCard " + course.getSubject() + "\"  >";
-    let headerDiv = "<div class=\"classHeader\">" + "<span class=\"material-symbols-rounded\"" + unfilled + ">" + course.getIcon() + "</span><div class=\"className\" onclick=\"openClass(\'" + course.getClassName() + "\')\"><u>" + course.getClassName() + "</u></div><span class=\"material-symbols-rounded\" style=\"cursor: pointer;font-variation-settings:'FILL' 0\" onclick=\"fav(this)\" id=\"" + course.getClassName() + "\">bookmark</span></div>";
-            let starDiv = "<div class=\"classRate\">" + numberToStars(course.getAverageRating()) + "</div>";
-            let descriptionDiv = "<div class=\"classDes\">" + course.getDescription() + "</div></div>";
-            let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
-            bodyHTML += htmlCard;
+    let classCardDiv = `<div class="classCard ${subjectClass}"  >`;
+    let headerDiv = `<div class="classHeader">` + `<span class="material-symbols-rounded"${unfilled}>${course.getIcon()}</span><div class="className" onclick="openClass('${course.getClassName()}')"><u>${course.getClassName()}</u></div><span class="material-symbols-rounded" style="cursor: pointer;font-variation-settings:'FILL' 0" onclick="fav(this)" id="${course.getClassName()}">bookmark</span></div>`;
+    // Add subjectClass to classRate for color
+    let starDiv = `<div class="classRate ${subjectClass}">` + numberToStars(course.getAverageRating()) + `</div>`;
+    let descriptionDiv = `<div class="classDes">${course.getDescription()}</div></div>`;
+    let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
+    bodyHTML += htmlCard;
   }
-
   console.log('Generated HTML for', course.getClassName(), ':', bodyHTML.substring(0, 200) + '...');
   return bodyHTML;
 }

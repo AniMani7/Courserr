@@ -111,27 +111,24 @@ function displayCourseDetails() {
     `;
   }
   
-  // add tags based on the subject
-  const tagsEl = document.querySelector('.classPageClassTagsArea');
-  if (tagsEl) {
-    let tagsHTML = "";
-    if (course.getSubject() === "Agriculture") {
-      // agriculture gets special tags
-      tagsHTML = `
-        <md-suggestion-chip label="Hands-on Learning"></md-suggestion-chip>
-        <md-suggestion-chip label="Practical Skills"></md-suggestion-chip>
-        <md-suggestion-chip label="Science-based"></md-suggestion-chip>
-        <md-suggestion-chip label="Career Preparation"></md-suggestion-chip>
-      `;
-    } else {
-      // default tags for other subjects
-      tagsHTML = `
-        <md-suggestion-chip label="Academic"></md-suggestion-chip>
-        <md-suggestion-chip label="Core Subject"></md-suggestion-chip>
-      `;
-    }
-    tagsEl.innerHTML = tagsHTML;
+  // add tags dynamically from the course object
+const tagsEl = document.querySelector('.classPageClassTagsArea');
+if (tagsEl) {
+  let tagsHTML = "";
+  const courseTags = course.getTags();
+  if (courseTags && courseTags.length > 0) {
+    // Generate tags from the course's tag array
+    courseTags.forEach(tag => {
+      tagsHTML += `<md-suggestion-chip label="${tag}"></md-suggestion-chip>`;
+    });
+  } else {
+    tagsHTML = `
+      <md-suggestion-chip label="Academic"></md-suggestion-chip>
+      <md-suggestion-chip label="Core Subject"></md-suggestion-chip>
+    `;
   }
+  tagsEl.innerHTML = tagsHTML;
+}
   
   // create the graph (with a small delay to make sure everything is loaded)
   setTimeout(() => {

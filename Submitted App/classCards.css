@@ -1,3 +1,64 @@
+/* Subject Color Styles */
+.agriculture {
+    background: #8bc34a; /* green for agriculture */
+    color: #3e5c1c;
+}
+.appliedSciences, .technology, .engineering, .manufacturing {
+    background: #607d8b; /* blue-grey for STEM */
+    color: #263238;
+}
+.artEducation, .arts {
+    background: #ffb74d; /* orange for art */
+    color: #7c4700;
+}
+.business, .finance, .marketing, .management {
+    background: #ffd600; /* gold for business */
+    color: #7c6f00;
+}
+.career, .technicalEducation {
+    background: #bdbdbd; /* grey for CTE */
+    color: #333;
+}
+.english {
+    background: #7a98de;
+    color: #5e75ab;
+}
+.health {
+    background: #e57373; /* red for health */
+    color: #7f2323;
+}
+.humanServices {
+    background: #f8bbd0; /* pink for human services */
+    color: #7c3f58;
+}
+.informationSolutions {
+    background: #00bcd4; /* cyan for info tech */
+    color: #004d56;
+}
+.mathematics, .math {
+    background: #335a8a;
+    color: #203957;
+}
+.music {
+    background: #ddc260;
+    color: #ab9649;
+}
+.physicalEducation {
+    background: #aed581; /* light green for PE */
+    color: #33691e;
+}
+.science {
+    background: #7f995a;
+    color: #55663c;
+}
+.socialStudies, .history {
+    background: #5b135a;
+    color: #290928;
+}
+.worldLanguage, .foreignLanguage {
+    background: #e99ca5;
+    color: #b57980;
+}
 /* Class Grid Styles */
 .class-grid {
     position: absolute;
@@ -45,38 +106,7 @@
     font-weight: bold;
 }
 /* Class Card Color Styles */
-.history {
-    background: #5b135a;
-    color: #290928;
-}
-.english {
-    background: #7a98de;
-    color: #5e75ab;
-}
-.math {
-    background: #335a8a;
-    color: #203957;
-}
-.arts {
-    background: #2bcbc9;
-    color: #209997;
-}
-.science {
-    background: #7f995a;
-    color: #55663c;
-}
-.music {
-    background: #ddc260;
-    color: #ab9649;
-}
-.foreignLanguage {
-    background: #e99ca5;
-    color: #b57980;
-}
-.misc {
-    background: #c3044c;
-    color: #8f0339;
-}
+/* ...existing code... */
 
 /* Class Card Layout */
 .classHeader {
