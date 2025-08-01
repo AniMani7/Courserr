@@ -5,122 +5,143 @@ let currentAnimations = [];
 const unfilled= "style=\"font-variation-settings:'FILL' 0\"";
 
 
+function updateFilterButtons() {
+  // Get all unique subjects from the courseMap
+  const allCourses = Array.from(courseMap.values());
+  const subjects = [...new Set(allCourses.map(course => course.getSubject()))];
+  
+  console.log("Available subjects:", subjects);
+  
+  // Find the filter area
+  const filterArea = document.querySelector('.filterArea');
+  if (filterArea) {
+    let filterHTML = '';
+    
+    // Add subject filters dynamically
+    subjects.forEach(subject => {
+      filterHTML += `<span class="filterChip"><md-filter-chip label="${subject}" onclick="filter(this.label)"></md-filter-chip></span>`;
+    });
+    
+    // Add bookmarked filter
+    filterHTML += `<span class="filterChip"><md-filter-chip label="Bookmarked" onclick="filter(this.label)"></md-filter-chip></span>`;
+    
+    filterArea.innerHTML = filterHTML;
+    
+    // Update the visual state of all filter chips based on current filters
+    const filterChips = document.querySelectorAll('md-filter-chip');
+    filterChips.forEach(chip => {
+      const chipLabel = chip.label.toLowerCase();
+      if (curentFilters.includes(chipLabel)) {
+        chip.selected = true;
+      } else {
+        chip.selected = false;
+      }
+    });
+  }
+}
+
 function load() {
   if(sessionStorage.getItem("bookmarks") === null) {
     bookmarks = [];
-} else {
-  bookmarks = sessionStorage.getItem("bookmarks").split(",");
+  } else {
+    bookmarks = sessionStorage.getItem("bookmarks").split(",");
+  }
+  curentFilters = [];
+  console.log("Page loaded, bookmarks and filters initialized");
+  
+  // Initialize filter chip states after a short delay to ensure DOM is ready
+  setTimeout(() => {
+    updateFilterButtons();
+  }, 100);
 }
-}
-function doshit() {
+
+function dothing() {
   let body = document.getElementById('classGrid');
   let totalHTML = "";
   
-  if(curentFilters.length ===0) {
-     for (let i = 0; i < courses.length; i++) {
-            const course = courses[i];
+  // Check if courseMap exists and has data
+  if (typeof courseMap === 'undefined' || courseMap.size === 0) {
+    console.error("courseMap is not available or empty");
+    body.innerHTML = "<p>No courses available</p>";
+    return;
+  }
+  
+  // Update filter buttons dynamically
+  updateFilterButtons();
+  
+  // Get all courses from the courseMap
+  const allCourses = Array.from(courseMap.values());
+  console.log("Total courses loaded:", allCourses.length);
+  console.log("All course names:", allCourses.map(c => c.getClassName()));
+  console.log("Current filters:", curentFilters);
+  
+  if(curentFilters.length === 0) {
+     for (let i = 0; i < allCourses.length; i++) {
+            const course = allCourses[i];
+            console.log("Processing course:", course.getClassName());
             if(bookmarks.includes(course.getClassName())) {
-                  //alert("bookmarked " + course.getClassName());  
-                  //alert(makeHTML(course, true));
                   totalHTML += makeHTML(course, true);
                 } else {
-                  //alert("not bookmarked " + course.getClassName());
                   totalHTML += makeHTML(course, false);
-                  //alert(totalHTML);
                 }
     }
   } else {
-    for (let i = 0; i < courses.length; i++) {
-            const course = courses[i];
-            if(curentFilters.includes("bookmarked")) {
-              if(bookmarks.includes(course.getClassName())) {
-                totalHTML += makeHTML(course, true);
-              }
-            } 
-            if(curentFilters.includes(course.getSubject())) {
-              if(curentFilters.includes("bookmarked")) {
-                
-              } else {
-            if(bookmarks.includes(course.getClassName())) {
-                  //alert("bookmarked " + course.getClassName());  
-                  //alert(makeHTML(course, true));
-                  totalHTML += makeHTML(course, true);
-                } else {
-                  //alert("not bookmarked " + course.getClassName());
-                  totalHTML += makeHTML(course, false);
-                  //alert(totalHTML);
+    for (let i = 0; i < allCourses.length; i++) {
+            const course = allCourses[i];
+            let shouldShow = false;
+            
+            // Check if course matches any of the active filters
+            for (let j = 0; j < curentFilters.length; j++) {
+              const filter = curentFilters[j];
+              
+              if (filter === "bookmarked") {
+                // Show only bookmarked courses
+                if (bookmarks.includes(course.getClassName())) {
+                  shouldShow = true;
+                  break;
                 }
-            }
+              } else if (filter.toLowerCase() === course.getSubject().toLowerCase()) {
+                // Show courses matching this subject
+                shouldShow = true;
+                break;
+              }
             }
             
+            if (shouldShow) {
+              if(bookmarks.includes(course.getClassName())) {
+                totalHTML += makeHTML(course, true);
+              } else {
+                totalHTML += makeHTML(course, false);
+              }
+            }
     }
   }
     body.innerHTML = totalHTML;
 }
-      
-      
-      
-      
-      
-      
-      /*
-      
-      
-      
-      
-       // alert(courses[i]);
-  let classCardDiv = "<div class=\"classCard " + course.getSubject() + "\">";
-  if(bookmarked.includes(course.getClassName())) {
-
-    let headerDiv = "<div class=\"classHeader\">" + "<span class=\"material-symbols-rounded\"" + unfilled + ">" + course.getIcon() + "</span><div class=\"className\"><u>" + course.getClassName() + "</u></div><span class=\"material-symbols-rounded\" style=\"cursor: pointer;font-variation-settings:'FILL' 0\" onclick=\"fav(this)\" id=\"" + course.getClassName() + "\">bookmark</span></div>";
-
-  
-  let starDiv = "<div class=\"classRate\">" + numberToStars(course.getAverageRating()) + "</div>";
-  let descriptionDiv = "<div class=\"classDes\">" + course.getDescription() + "</div></div>";
-  let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
-  bodyHTML += htmlCard;
-}
-body.innerHTML = bodyHTML;
-} else {
-  let bodyHTML = "";
- for (let i = 0; i < courses.length; i++) {
-        const course = courses[i];
-       // alert(curentFilters + " " + course.getSubject())
-       //alert(course.getFilters());
-;      if(curentFilters.includes(course.getSubject()) === true) {
-       // alert(courses[i]);
-  let classCardDiv = "<div class=\"classCard " + course.getSubject() + "\">"
-  let headerDiv = "<div class=\"classHeader\">" + "<span class=\"material-symbols-rounded\"" + unfilled + ">" + course.getIcon() + "</span><div class=\"className\"><u>" + course.getClassName() + "</u></div><span class=\"material-symbols-rounded\" style=\"cursor: pointer;font-variation-settings:'FILL' 0\" onclick=\"fav(this)\">bookmark</span></div>";
-  let starDiv = "<div class=\"classRate\">" + numberToStars(course.getAverageRating()) + "</div>";
-  let descriptionDiv = "<div class=\"classDes\">" + course.getDescription() + "</div></div>";
-  let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
-  //alert(htmlCard);
-  bodyHTML += htmlCard;
-}
-}
-  body.innerHTML = bodyHTML;
-}
-}
-*/
 
 function makeHTML(course, fill) {
   let bodyHTML = "";
-  if(fill === true) {
-            let classCardDiv = "<div class=\"classCard " + course.getSubject() + "\">";
-            let headerDiv = "<div class=\"classHeader\">" + "<span class=\"material-symbols-rounded\"" + unfilled + ">" + course.getIcon() + "</span><div class=\"className\"><u>" + course.getClassName() + "</u></div><span class=\"material-symbols-rounded\" style=\"cursor: pointer;font-variation-settings:'FILL' 1\" onclick=\"fav(this)\" id=\"" + course.getClassName() + "\">bookmark</span></div>";
-            let starDiv = "<div class=\"classRate\">" + numberToStars(course.getAverageRating()) + "</div>";
-            let descriptionDiv = "<div class=\"classDes\">" + course.getDescription() + "</div></div>";
-            let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
-            bodyHTML += htmlCard;
+  console.log('makeHTML called for course:', course.getClassName());
+  // Always use lowercase, no spaces, for subject class assignment
+  const subjectClass = course.getSubject().replace(/\s+/g, '').toLowerCase();
+  if (fill === true) {
+    let classCardDiv = `<div class="classCard ${subjectClass}" onclick="openClass('${course.getClassName()}')" >`;
+    let headerDiv = `<div class="classHeader">` + `<span class="material-symbols-rounded"${unfilled}>${course.getIcon()}</span><div class="className" onclick="openClass('${course.getClassName()}')"><u>${course.getClassName()}</u></div><span class="material-symbols-rounded" style="cursor: pointer;font-variation-settings:'FILL' 1" onclick="fav(this)" id="${course.getClassName()}">bookmark</span></div>`;
+    // Add subjectClass to classRate for color
+    let starDiv = `<div class="classRate ${subjectClass}">` + numberToStars(course.getAverageRating()) + `</div>`;
+    let descriptionDiv = `<div class="classDes">${course.getDescription()}</div></div>`;
+    let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
+    bodyHTML += htmlCard;
   } else {
-    let classCardDiv = "<div class=\"classCard " + course.getSubject() + "\">";
-    let headerDiv = "<div class=\"classHeader\">" + "<span class=\"material-symbols-rounded\"" + unfilled + ">" + course.getIcon() + "</span><div class=\"className\"><u>" + course.getClassName() + "</u></div><span class=\"material-symbols-rounded\" style=\"cursor: pointer;font-variation-settings:'FILL' 0\" onclick=\"fav(this)\" id=\"" + course.getClassName() + "\">bookmark</span></div>";
-            let starDiv = "<div class=\"classRate\">" + numberToStars(course.getAverageRating()) + "</div>";
-            let descriptionDiv = "<div class=\"classDes\">" + course.getDescription() + "</div></div>";
-            let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
-            bodyHTML += htmlCard;
+    let classCardDiv = `<div class="classCard ${subjectClass}"  >`;
+    let headerDiv = `<div class="classHeader">` + `<span class="material-symbols-rounded"${unfilled}>${course.getIcon()}</span><div class="className" onclick="openClass('${course.getClassName()}')"><u>${course.getClassName()}</u></div><span class="material-symbols-rounded" style="cursor: pointer;font-variation-settings:'FILL' 0" onclick="fav(this)" id="${course.getClassName()}">bookmark</span></div>`;
+    // Add subjectClass to classRate for color
+    let starDiv = `<div class="classRate ${subjectClass}">` + numberToStars(course.getAverageRating()) + `</div>`;
+    let descriptionDiv = `<div class="classDes">${course.getDescription()}</div></div>`;
+    let htmlCard = classCardDiv + headerDiv + starDiv + descriptionDiv;
+    bodyHTML += htmlCard;
   }
-
+  console.log('Generated HTML for', course.getClassName(), ':', bodyHTML.substring(0, 200) + '...');
   return bodyHTML;
 }
 
@@ -137,9 +158,15 @@ function numberToStars(rating) {
 }
 
 function loopThroughClasses() {
-    // Loop through all courses
-    for (let i = 0; i < courses.length; i++) {
-        const course = courses[i];
+    // Loop through all courses from courseMap
+    if (typeof courseMap === 'undefined' || courseMap.size === 0) {
+        console.error("courseMap is not available");
+        return;
+    }
+    
+    const allCourses = Array.from(courseMap.values());
+    for (let i = 0; i < allCourses.length; i++) {
+        const course = allCourses[i];
         
         // Access and display various properties of each class
         alert(`Course: ${course.getSubject()}`);
@@ -153,16 +180,31 @@ function loopThroughClasses() {
 
 function filter(type) {
   let body = document.getElementById('classGrid');
-  if(curentFilters.includes(type.toLowerCase())) {
-    curentFilters[curentFilters.indexOf(type.toLowerCase())] = "";
+  const filterType = type.toLowerCase();
+  
+  if(curentFilters.includes(filterType)) {
+    curentFilters[curentFilters.indexOf(filterType)] = "";
   } else {
-    curentFilters.push(type.toLowerCase());
+    curentFilters.push(filterType);
   }
   curentFilters = curentFilters.filter(item => item !== "");
+  
+  console.log("Filter applied:", type, "Current filters:", curentFilters);
+  
+  // Update the visual state of the filter chip
+  const filterChips = document.querySelectorAll('md-filter-chip');
+  filterChips.forEach(chip => {
+    if (chip.label.toLowerCase() === filterType) {
+      if (curentFilters.includes(filterType)) {
+        chip.selected = true;
+      } else {
+        chip.selected = false;
+      }
+    }
+  });
+  
   body.innerHTML = "";
-  //alert(curentFilters);
-  doshit();
-
+  dothing();
 }
 
 function shuffleArray(array) {
@@ -175,4 +217,25 @@ function shuffleArray(array) {
     return array;
 }
 
+function fav(element) {
+   let fillValue;
+   //alert(element.id);
+    if (element.style.cssText.includes("1")) {
+        fillValue = "'FILL' 0";  // If it's filled, switch to unfilled.
+        bookmarks[bookmarks.indexOf(element.id)] = "";
+    } else {
+        fillValue = "'FILL' 1";  // If it's unfilled, switch to filled.
+        bookmarks.push(element.id);
+    }
+    element.style.fontVariationSettings = fillValue;
+    bookmarks = bookmarks.filter(item => item !== "");
+    sessionStorage.setItem("bookmarks", bookmarks);
+    //alert(sessionStorage.getItem("bookmarks"));
+}
+
+function openClass(className) {
+    //alert(classToOpen);
+    let modify = className.replace(" ", "_");
+    window.location.href = './classPage.html?category=' + encodeURIComponent(modify);
+}
 

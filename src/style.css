@@ -6,12 +6,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 :root {
     height: 100%;
-    --light-mode-bg: rgba(204, 204, 204, 0.75);
-    --dark-mode-bg: rgba(75, 75, 75, 0.75);
+    --light-mode-bg: rgba(255, 221, 188, 0.75);
+    --dark-mode-bg: rgba(119, 46, 12, 0.75);
     --dark-bg: rgb(20, 20, 20);
     --light-bg: white;
 }
@@ -87,7 +87,7 @@ body {
   padding: 0.5%;
   border-radius: 25%;
   font-size: 5vh;
-  transition: background-color 0.1s ease, transform 1s ease;
+  transition: background-color 0.1s ease, transform 1s ease, filter 1.5s ease;
 }
 .mobileClose {
   display: none;
@@ -209,7 +209,37 @@ body {
 
 .filterChip {
   display: inline-block;
+  margin: 0 0.5vw;
 }
+
+/* Material Design Filter Chip Styling */
+md-filter-chip {
+  transition: all 0.3s ease;
+  --md-sys-color-primary: #2196F3;
+  --md-sys-color-on-primary: white;
+  --md-sys-color-surface: rgba(255, 255, 255, 0.8);
+  --md-sys-color-on-surface: #333;
+  --md-sys-color-outline: #ccc;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: #333 !important;
+}
+
+md-filter-chip[selected] {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  color: #333 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+md-filter-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+md-filter-chip[selected]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Remove the duplicate selected styling that was causing progressive blue */
 /* Classes Grid */
 .class-grid {
   /* top | right | bottom | left */
@@ -219,6 +249,7 @@ body {
     padding-top: 18.5vh;
     display: grid;
     grid-template-columns: 20vw 20vw 20vw 20vw;
+
     column-gap: 3.3vw;
     row-gap: 2vh;
     height: 100vh;
@@ -318,49 +349,73 @@ body {
 span {
   user-select: none;
 }
-.history {
-  /*background: #81A489;*/
-  background: #5b135a;
-  /*background-color: rgba(129, 164, 137, 0.75);*/
-  color: #290928;
+
+/* Subject Color Styles - unified and visually meaningful */
+
+/* Subject Color Styles - all lowercase for mapping */
+.agriculture {
+  background: #8bc34a !important; /* green for agriculture */
+  color: #3e5c1c !important;
+}
+.appliedsciences, .technology, .engineering, .manufacturing {
+  background: #607d8b !important; /* blue-grey for STEM */
+  color: #263238 !important;
+}
+.arteducation, .arts {
+  background: #ffb74d !important; /* orange for art */
+  color: #7c4700 !important;
+}
+.business, .finance, .marketing, .management {
+  background: #ffd600 !important; /* gold for business */
+  color: #7c6f00 !important;
+}
+.career, .technicaleducation {
+  background: #bdbdbd !important; /* grey for CTE */
+  color: #333 !important;
 }
 .english {
-  /*background: #F2A054;*/
-  /*background-color: rgba(208, 101, 235, 0.75);*/
-  background: #7a98de;
-  color: #5e75ab;
+  background: #7a98de !important;
+  color: #5e75ab !important;
 }
-.math {
-  /*background: #F1D8B5;*/
-  background: #335a8a;
-  /*background-color: rgba(101, 235, 105, 0.75);*/
-  color: #203957;
+.health {
+  background: #e57373 !important; /* red for health */
+  color: #7f2323 !important;
 }
-.arts {
-  /*background: #C04D31;*/
-  background: #2bcbc9;
-  /*background-color: rgba(235, 101, 101, 0.75);*/
-  color: #209997;
+.humanservices {
+  background: #f8bbd0 !important; /* pink for human services */
+  color: #7c3f58 !important;
 }
-.science {
-  /*background: #8043AD;*/
-  background: #7f995a;
-  /*background-color: rgba(235, 202, 101, 0.75);*/
-  color: #55663c;
+.informationsolutions {
+  background: #00bcd4 !important; /* cyan for info tech */
+  color: #004d56 !important;
+}
+.mathematics, .math {
+  background: #335a8a !important;
+  color: #203957 !important;
 }
 .music {
-  /*background: #42A6A9;*/
-  background: #ddc260;
-  /*background-color: rgba(101, 235, 231, 0.75);*/
-  color: #ab9649;
+  background: #ddc260 !important;
+  color: #ab9649 !important;
 }
-.foreignLanguage {
-  background: #e99ca5;
-  color: #b57980;
+.physicaleducation {
+  background: #aed581 !important; /* light green for PE */
+  color: #33691e !important;
+}
+.science {
+  background: #7f995a !important;
+  color: #55663c !important;
+}
+.socialstudies, .history {
+  background: #5b135a !important;
+  color: #290928 !important;
+}
+.worldlanguage, .foreignlanguage {
+  background: #e99ca5 !important;
+  color: #b57980 !important;
 }
 .misc {
-  background: #c3044c;
-  color: #8f0339;
+  background: #c3044c !important;
+  color: #8f0339 !important;
 }
 
 .closeMenu {
