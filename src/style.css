@@ -26,6 +26,7 @@ body {
     transition: background-color 1.5s ease;
 }
 
+
 .container {
     display: flex;
     width: 100vw;
@@ -78,7 +79,26 @@ body {
   width: 4.1vw;
 }
 
+/* Extend the orange header background to cover filter tags - INDEX PAGE ONLY */
+body:not(.classPage) .header {
+  height: 19vh !important; /* Increased from 14.5vh */
+}
 
+/* Update class grid to account for taller header - INDEX PAGE ONLY */
+body:not(.classPage) .class-grid {
+  padding-top: 22vh !important; /* Increased from 18.5vh */
+}
+
+/* Mobile adjustments - INDEX PAGE ONLY */
+@media (max-width: 768px) {
+  body:not(.classPage) .header {
+      height: 20vh !important; /* Increased from 16vh */
+  }
+  
+  body:not(.classPage) .class-grid {
+      padding-top: 22vh !important;
+  }
+}
 .mode {
   position: absolute;
   z-index: 999;
@@ -430,72 +450,148 @@ span {
   transition: opacity 0.25s ease, transform 0.5s ease;
 }
 
+
+/* Updated search bar styles for better visibility and positioning */
+
 .search-container {
   display: flex;
   align-items: center;
-  margin: 0 2vw;
+  justify-content: flex-start;
+  margin: -1vh 0vw 0 -2vw;
+  width: calc(100% + 2vw);
+  position: relative;
+  z-index: 100;
+  padding-left: 4.5vw;
 }
 
 .search-box {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 2vh;
   padding: 0.8vh 1.5vw;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   min-width: 25vw;
+  max-width: 35vw;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-box:focus-within {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 1);
+  border-color: #2196F3;
+  box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+  transform: translateY(-1px);
 }
 
 .search-icon {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 2.2vh;
-  margin-right: 1vw;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 2vh;
+  margin-right: 0.8vw;
+  transition: color 0.2s ease;
+}
+
+.search-box:focus-within .search-icon {
+  color: #2196F3;
 }
 
 #searchInput {
   background: transparent;
   border: none;
   outline: none;
-  color: white;
-  font-size: 1.8vh;
+  color: #333;
+  font-size: 1.6vh;
   font-family: 'Roboto', sans-serif;
+  font-weight: 400;
   width: 100%;
   padding: 0;
 }
 
 #searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
 }
 
 .clear-search {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 2vh;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 2.2vh;
   cursor: pointer;
-  margin-left: 0.5vw;
-  transition: color 0.2s ease;
+  margin-left: 0.8vw;
+  padding: 0.2vh;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
 .clear-search:hover {
+  color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+/* Dark mode adjustments */
+.search-box.dark-mode {
+  background: rgba(60, 60, 60, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.search-box.dark-mode:focus-within {
+  background: rgba(80, 80, 80, 1);
+  border-color: #64B5F6;
+  box-shadow: 0 4px 20px rgba(100, 181, 246, 0.3);
+}
+
+.search-box.dark-mode .search-icon {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-box.dark-mode:focus-within .search-icon {
+  color: #64B5F6;
+}
+
+.search-box.dark-mode #searchInput {
   color: white;
 }
 
+.search-box.dark-mode #searchInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-box.dark-mode .clear-search {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-box.dark-mode .clear-search:hover {
+  color: #f44336;
+  background: rgba(244, 67, 54, 0.2);
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
+  .search-container {
+    margin: 1.5vh 3vw 0.5vh 3vw;
+    width: calc(100% - 6vw);
+  }
+  
   .search-box {
-      min-width: 40vw;
-      padding: 1vh 3vw;
+    min-width: 70vw;
+    max-width: 85vw;
+    padding: 1.5vh 4vw;
+    border-radius: 3vh;
+  }
+  
+  .search-icon {
+    font-size: 2.8vh;
+    margin-right: 2vw;
   }
   
   #searchInput {
-      font-size: 2vh;
+    font-size: 2.2vh;
+  }
+  
+  .clear-search {
+    font-size: 2.6vh;
+    margin-left: 1.5vw;
   }
 }
 
