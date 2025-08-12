@@ -1879,6 +1879,7 @@ courseMap.set("Business Engagement Collaborative (ADM221)", businessEngagementCo
 courseMap.set("Advanced Business Engagement Collaborative (ADM936)", advancedBusinessEngagementCollaborative);
 courseMap.set("Internship Program 1 (WBL110)", internshipProgram1);
 courseMap.set("Internship Program 2 (WBL150)", internshipProgram2);
+courseMap.set("Introduction to Business", introductionToBusiness);
 
 // English
 courseMap.set("English 9 Workshop", english9Workshop);

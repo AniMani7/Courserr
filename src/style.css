@@ -457,11 +457,11 @@ span {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin: -1vh 0vw 0 -2vw;
-  width: calc(100% + 2vw);
+  margin: -1vh 0vw 0 0vw; /* Remove negative left margin */
+  width: 100%;
   position: relative;
   z-index: 100;
-  padding-left: 4.5vw;
+  padding-left: 1vw; /* Reduce left padding for better alignment */
 }
 
 .search-box {
