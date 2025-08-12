@@ -121,6 +121,15 @@ md-sys-color {
                   <!--<button onclick="menuOpen()" style="height: 10vh; width: 10vw">Click Me</button>-->
                  
                 </div>
+                <div class="search-container">
+                  <div class="search-box">
+                      <span class="material-symbols-rounded search-icon">search</span>
+                      <input type="text" id="searchInput" placeholder="Search courses..." 
+                             onkeyup="searchCourses()" autocomplete="off">
+                      <span class="material-symbols-rounded clear-search" id="clearSearch" 
+                            onclick="clearSearch()" style="display: none;">close</span>
+                  </div>
+                </div>
                 <div>
                   <md-chip-set class="filterArea">
                   <!-- Filter chips will be generated dynamically from course data -->
@@ -253,8 +262,9 @@ function openClose(closed) {
 }
 function openClass(classToOpen) {
   //alert(classToOpen);
-  let modify = classToOpen.replace(" ", "_");
-  window.location.href = './classPage.html?category=' + encodeURIComponent(modify);
+  //let change = classToOpen.replace(" ", "_");
+  let change = encodeURIComponent(classToOpen);
+  window.location.href = './classPage.html?category=' + encodeURIComponent(change);
 }
 
 </script>

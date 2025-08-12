@@ -1,9 +1,9 @@
 let curentFilters = [];
 let bookmarks = [];
 let currentAnimations = [];
+let searchQuery = '';
 
 const unfilled= "style=\"font-variation-settings:'FILL' 0\"";
-
 
 function updateFilterButtons() {
   // Get all unique subjects from the courseMap
@@ -72,13 +72,12 @@ function dothing() {
   // Get all courses from the courseMap
   const allCourses = Array.from(courseMap.values());
   console.log("Total courses loaded:", allCourses.length);
-  console.log("All course names:", allCourses.map(c => c.getClassName()));
   console.log("Current filters:", curentFilters);
+  console.log("Search query:", searchQuery);
   
-  if(curentFilters.length === 0) {
+  if(curentFilters.length === 0 && !searchQuery) {
      for (let i = 0; i < allCourses.length; i++) {
             const course = allCourses[i];
-            console.log("Processing course:", course.getClassName());
             if(bookmarks.includes(course.getClassName())) {
                   totalHTML += makeHTML(course, true);
                 } else {
@@ -90,21 +89,38 @@ function dothing() {
             const course = allCourses[i];
             let shouldShow = false;
             
-            // Check if course matches any of the active filters
-            for (let j = 0; j < curentFilters.length; j++) {
-              const filter = curentFilters[j];
-              
-              if (filter === "bookmarked") {
-                // Show only bookmarked courses
-                if (bookmarks.includes(course.getClassName())) {
-                  shouldShow = true;
-                  break;
+            // Check search query first
+            if (searchQuery) {
+                const courseName = course.getClassName().toLowerCase();
+                const courseSubject = course.getSubject().toLowerCase();
+                const courseDescription = course.getDescription().toLowerCase();
+                
+                if (courseName.includes(searchQuery) || 
+                    courseSubject.includes(searchQuery) || 
+                    courseDescription.includes(searchQuery)) {
+                    shouldShow = true;
                 }
-              } else if (filter.toLowerCase() === course.getSubject().toLowerCase()) {
-                // Show courses matching this subject
-                shouldShow = true;
-                break;
-              }
+            } else {
+                shouldShow = true; // If no search query, show by default
+            }
+            
+            // Then apply filter logic if there are active filters
+            if (shouldShow && curentFilters.length > 0) {
+                shouldShow = false; // Reset and check filters
+                
+                for (let j = 0; j < curentFilters.length; j++) {
+                  const filter = curentFilters[j];
+                  
+                  if (filter === "bookmarked") {
+                    if (bookmarks.includes(course.getClassName())) {
+                      shouldShow = true;
+                      break;
+                    }
+                  } else if (filter.toLowerCase() === course.getSubject().toLowerCase()) {
+                    shouldShow = true;
+                    break;
+                  }
+                }
             }
             
             if (shouldShow) {
@@ -217,6 +233,35 @@ function shuffleArray(array) {
     return array;
 }
 
+function searchCourses() {
+    const searchInput = document.getElementById('searchInput');
+    const clearButton = document.getElementById('clearSearch');
+    
+    searchQuery = searchInput.value.toLowerCase().trim();
+    
+    // Show/hide clear button
+    if (searchQuery.length > 0) {
+        clearButton.style.display = 'block';
+    } else {
+        clearButton.style.display = 'none';
+    }
+    
+    // Refresh the course display
+    dothing();
+}
+
+function clearSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const clearButton = document.getElementById('clearSearch');
+    
+    searchInput.value = '';
+    searchQuery = '';
+    clearButton.style.display = 'none';
+    
+    // Refresh the course display
+    dothing();
+}
+
 function fav(element) {
    let fillValue;
    //alert(element.id);
@@ -234,8 +279,6 @@ function fav(element) {
 }
 
 function openClass(className) {
-    //alert(classToOpen);
-    let modify = className.replace(" ", "_");
-    window.location.href = './classPage.html?category=' + encodeURIComponent(modify);
+    console.log('Opening class:', className);
+    window.location.href = './classPage.html?category=' + encodeURIComponent(classToOpen);
 }
-

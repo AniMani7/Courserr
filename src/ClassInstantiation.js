@@ -1269,25 +1269,6 @@ const shakespeare = new Class(
     ["Research", "Critical Thinking", "Problem Solving", "Capstone"]
 );
 
-const americanSocietyThroughFilm_Literature = new Class(
-    true, // dualCredit
-    "English", // subject
-    "11, 12", // usualGrade
-    "None", // prerequisite
-    "Semester", // duration
-    "Spring", // Semester Offered
-    "None", // honorsAP
-    "Dual English & Sociology credit with DMACC HUM121 alignment. Examines American society via film from early 20th century to present; includes analysis, critique, and sociological themes in a two-period daily block.", // description
-    [4.0, 3.5, 3.8], // ratings
-    ["Challenging but worth it.", "Helped me understand better."], // comments
-    [4,0,2], // averageTimePerWeek
-    "calculate", // icon
-    "American Society Through Film* (Literature)", // className
-    ['A+','B-','A'], // grades
-    [4,3,2], //classDifficulty
-    ["Research", "Critical Thinking", "Problem Solving", "Capstone"] // tags
-);
-
 const surveyOfLiterature12 = new Class(
     false, // dualCredit
     "English", // subject
@@ -1903,26 +1884,26 @@ courseMap.set("Internship Program 2 (WBL150)", internshipProgram2);
 courseMap.set("English 9 Workshop", english9Workshop);
 courseMap.set("English 9 Literature", english9Literature);
 courseMap.set("Basic Composition", basicComposition);
-courseMap.set("Creative Writing", creativeWriting);
+courseMap.set("Creative Writing", creativeWriting10);
 courseMap.set("Mythology, Fantasy, Folklore", mythologyFantasyFolklore);
 courseMap.set("Survey of Literature (10th)", surveyOfLiterature10);
 courseMap.set("American Literature", americanLiterature);
 courseMap.set("Speech", speech);
 courseMap.set("Multimedia Composition", multimediaComposition);
-courseMap.set("Introduction to Journalism", introductionToJournalism);
-courseMap.set("Activism & Social Justice Literature", activismSocialJusticeLit);
+courseMap.set("Introduction to Journalism", introToJournalism);
+courseMap.set("Activism & Social Justice Literature", activismAndSocialJusticeLit);
 courseMap.set("Horror Literature", horrorLiterature);
 courseMap.set("Science-Fiction Literature", scienceFictionLiterature);
 courseMap.set("Shakespeare", shakespeare);
-courseMap.set("American Society Through Film", americanSocietyThroughFilm);
+courseMap.set("American Society Through Film", americanSocietyThroughFilm_HUM121);
 courseMap.set("Survey of Literature (12th)", surveyOfLiterature12);
 courseMap.set("Drama", drama);
 courseMap.set("Advanced Journalism", advancedJournalism);
 courseMap.set("SPIRIT (AHS Yearbook)", spiritYearbook);
-courseMap.set("AP English Language & Composition (ENG 105 & 106)", apEnglishLanguage);
-courseMap.set("AP English Literature & Composition (LIT 101 & 185)", apEnglishLiterature);
-courseMap.set("Advanced Creative Writing (ENG221)", advancedCreativeWriting);
-courseMap.set("World Literature 2 (LIT 151)", worldLiterature2);
+courseMap.set("AP English Language & Composition (ENG 105 & 106)", apEnglishLanguageAndComposition_ENG105_106);
+courseMap.set("AP English Literature & Composition (LIT 101 & 185)", apEnglishLiteratureAndComposition_LIT101_185);
+courseMap.set("Advanced Creative Writing (ENG221)", advancedCreativeWriting_ENG221);
+courseMap.set("World Literature 2 (LIT 151)", worldLiterature2_LIT151);
 
 // Human Services
 courseMap.set("Introduction to Human Services", introductionToHumanServices);
@@ -1932,8 +1913,8 @@ courseMap.set("Child Development II", childDevelopment2);
 courseMap.set("Early Childhood Education I", earlyChildhoodEducation1);
 courseMap.set("Early Childhood Education II", earlyChildhoodEducation2);
 courseMap.set("Early Childhood Education III – Field Experience", earlyChildhoodEducation3);
-courseMap.set("Internship Program 1 (Human Services)", internshipProgram1HumanServices);
-courseMap.set("Internship Program 2 (Human Services)", internshipProgram2HumanServices);
+courseMap.set("Internship Program 1 (Human Services)", internshipProgram1);
+courseMap.set("Internship Program 2 (Human Services)", internshipProgram2);
 
 // Information Solutions
 courseMap.set("Advertising", advertising);
@@ -1952,3 +1933,5 @@ courseMap.set("Computer Science", computerScience);
 courseMap.set("Statistics (MAT 157)", statistics);
 courseMap.set("Pre-Calculus (MAT 129)", preCalculus);
 courseMap.set("AP Calculus (AB) (MAT 211)", apCalculusAB);
+console.log('Total classes loaded:', courseMap ? courseMap.size : 'courseMap undefined');
+console.log('Class names:', courseMap ? Array.from(courseMap.keys()) : 'No classes');

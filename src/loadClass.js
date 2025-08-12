@@ -2,18 +2,15 @@
 // pretty much just takes the course name from URL and displays all the info
 
 function loadClassData() {
-  // grab the course name from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const categoryParam = urlParams.get('category');
   let courseName = '';
 
   if (categoryParam) {
-      // convert underscores back to spaces (from the index page)
-      courseName = categoryParam.replace(/_/g, ' ');
+      courseName = decodeURIComponent(categoryParam);
       console.log('found course from URL:', courseName);
   } else {
-      console.log('no category param, trying fallback...');
-      // fallback to the old way if category doesn't exist
+      // fallback for older URLs
       const courseParam = urlParams.get('course');
       if (courseParam) {
           courseName = courseParam;
@@ -21,21 +18,49 @@ function loadClassData() {
       }
   }
   
-  // make sure we have the course data loaded
   if (!courseMap) {
     console.error('courseMap not loaded yet!');
     return null;
   }
   
-  // find the course in our data
+  // try exact match first
   if (courseName && courseMap.has(courseName)) {
     const course = courseMap.get(courseName);
-    console.log('found course:', course.getClassName());
+    console.log('found exact match:', course.getClassName());
     return course;
-  } else {
-    console.error('course not found:', courseName);
-    return null;
+  } 
+  
+  // try case insensitive match
+  if (courseName && courseMap) {
+    console.log('exact match failed, trying case-insensitive...');
+    const allCourses = Array.from(courseMap.keys());
+    
+    const match = allCourses.find(name => name.toLowerCase() === courseName.toLowerCase());
+    if (match) {
+      console.log('Found case-insensitive match:', match);
+      return courseMap.get(match);
+    }
+    
+    // try partial matching
+    const partialMatch = allCourses.find(name => 
+      name.toLowerCase().includes(courseName.toLowerCase()) ||
+      courseName.toLowerCase().includes(name.toLowerCase())
+    );
+    if (partialMatch) {
+      console.log('Found partial match:', partialMatch);
+      return courseMap.get(partialMatch);
+    }
   }
+  
+  // course not found
+  console.error('course not found:', courseName);
+  if (courseMap) {
+    console.log('Available courses are:');
+    Array.from(courseMap.keys()).forEach((name, index) => {
+      console.log(`${index + 1}. "${name}"`);
+    });
+  }
+  return null;
 }
 
 function displayCourseDetails() {
